@@ -1,7 +1,4 @@
-<!-- controllers/SignupController.php -->
-
 <?php
-include('../includes/db_connection.php');
 include('../models/UserModel.php');
 
 class SignupController {
@@ -14,18 +11,22 @@ class SignupController {
 
     public function signupUser($username, $password, $confirmPassword, $email, $age) {
         // Validate input
-        if ($password !== $confirmPassword) {
-            echo "Passwords do not match.";
+        if (!$this->validateInput($username, $password, $confirmPassword, $email, $age)) {
+            $this->sendErrorResponse("Invalid input. Please check your data.");
             return;
         }
 
         // Check if username already exists
         if ($this->userModel->isUsernameTaken($username)) {
-            echo "Username is already taken.";
+            $this->sendErrorResponse("Username is already taken.");
             return;
         }
 
-        // Additional validation for email and age can be added here
+         // Check if email already exists
+        if ($this->userModel->isEmailTaken($email)) {
+            $this->sendErrorResponse("Email is already registered. Please use a different email.");
+            return;
+        }
 
         // Hash the password before storing it
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -34,25 +35,25 @@ class SignupController {
         $result = $this->userModel->createUser($username, $hashedPassword, $email, $age);
 
         if ($result) {
-            echo "Registration successful! You can now <a href='login.html'>login</a>.";
+            $this->sendSuccessResponse("Registration successful! You can now login.");
         } else {
-            echo "Error: Registration failed.";
+            $this->sendErrorResponse("Error: Registration failed.");
         }
     }
-}
 
-// Check if the form is submitted
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $signupController = new SignupController();
-    $signupController->signupUser(
-        $_POST['username'],
-        $_POST['password'],
-        $_POST['confirm_password'],
-        $_POST['email'],
-        $_POST['age']
-    );
-}
+    private function validateInput($username, $password, $confirmPassword, $email, $age) {
 
-// Close the database connection
-pg_close($db);
+        return !empty($username) && !empty($password) && !empty($confirmPassword) && !empty($email) && !empty($age);
+    }
+
+    private function sendSuccessResponse($message) {
+        http_response_code(200);
+        echo json_encode(["status" => "success", "message" => $message]);
+    }
+
+    private function sendErrorResponse($message) {
+        http_response_code(400);
+        echo json_encode(["status" => "error", "message" => $message]);
+    }
+}
 ?>
