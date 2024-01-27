@@ -1,0 +1,42 @@
+<!-- views/signup.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Signup</title>
+    <style>
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Signup</h1>
+    <form id="signup-form" action="../api/signup.php" method="post">
+        <label for="username">Username:</label>
+        <input type="text" name="username" id="username" required>
+        <span class="error-message" id="username-error"></span>
+
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required>
+        
+        <label for="confirm_password">Confirm Password:</label>
+        <input type="password" name="confirm_password" id="confirm_password" required>
+        <span class="error-message" id="password-error"></span>
+
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" required>
+        <span class="error-message" id="email-error"></span>
+
+        <label for="age">Age:</label>
+        <input type="number" name="age" id="age" required>
+        <span class="error-message" id="age-error"></span>
+        
+        <input type="submit" value="Sign Up">
+    </form>
+
+    <script src="../assets/js/signup.js"></script>
+</body>
+</html>
