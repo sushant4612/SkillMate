@@ -17,29 +17,33 @@
     <form id="signup-form" action="../api/signup.php" method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" required>
+        <br>
         <span class="error-message" id="username-error"></span>
-
+        <br>
         <label for="password">Password:</label>
         <input type="password" name="password" id="password" required>
         <span id="show-password-checkbox">
             <input type="checkbox" id="show-password"> Show Password
         </span>
-        
+        <br>
         <label for="confirm_password">Confirm Password:</label>
         <input type="password" name="confirm_password" id="confirm_password" required>
         <span id="show-confirm-password-checkbox">
             <input type="checkbox" id="show-confirm-password"> Show Confirm Password
         </span>
+        <br>
         <span class="error-message" id="password-error"></span>
-
+        <br>
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required>
+        <br>
         <span class="error-message" id="email-error"></span>
 
         <label for="age">Age:</label>
         <input type="number" name="age" id="age" required>
+        <br>
         <span class="error-message" id="age-error"></span>
-        
+        <br>
         <input type="submit" value="Sign Up">
     </form>
 

@@ -1,4 +1,3 @@
-<!-- models/UserModel.php -->
 
 <?php
 
@@ -8,6 +7,41 @@ class UserModel {
     public function __construct($db) {
         $this->db = $db;
     }
+
+    public function getUserByUsername($username) {
+        if ($this->db === null) {
+            // Handle the case where the database connection is not established
+            // echo 'inside';
+            return null;
+        }
+    
+        $query = "SELECT * FROM users WHERE username = $1";
+        $result = pg_query_params($this->db, $query, array($username));
+    
+        // Check for errors in the query
+        if (!$result) {
+            return null;
+        }
+    
+        // Fetch user data from the result
+        $userData = pg_fetch_assoc($result);
+    
+        return $userData;
+    }
+
+    public function getUserByEmail($email) {
+        // Use prepared statements to prevent SQL injection
+        $query = "SELECT * FROM users WHERE email = $1";
+        $result = pg_query_params($this->db, $query, array($email));
+    
+        if (!$result) {
+            return null;
+        }
+    
+        $userData = pg_fetch_assoc($result);
+        return $userData;
+    }
+    
 
     public function isUsernameTaken($username) {
         $query = "SELECT * FROM users WHERE username = '$username'";

@@ -6,8 +6,10 @@ class SignupController {
 
     public function __construct() {
         global $db;
+        // echo $db;
         $this->userModel = new UserModel($db);
     }
+
 
     public function signupUser($username, $password, $confirmPassword, $email, $age) {
         // Validate input
