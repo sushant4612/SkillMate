@@ -1,9 +1,9 @@
 <?php
     $host = "localhost";
     $port = "5432";
-    $dbname = "skillmate";  // Use the actual database name
+    $dbname = "skillmate";
     $user = "sushantpathare";
-    $password = "";  // Use the actual password
+    $password = "";  
 
     $db = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
     if (!$db) {

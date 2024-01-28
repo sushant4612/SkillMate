@@ -6,8 +6,14 @@ document.getElementById('signup-form').addEventListener('submit', function (even
 
     // Validate username (letters only)
     const username = document.getElementById('username').value;
-    if (!validateUsername(username)) {
-        showError('username', 'Username must contain only letters.');
+    if (!validateUsernameForNumber(username)) {
+        showError('username', "Username shouldn't start with number.");
+        event.preventDefault();
+        return;
+    }
+
+    if (!validateUsernameForSymbol(username)) {
+        showError('username', "Username shouldn't contain symbol in it.");
         event.preventDefault();
         return;
     }
@@ -17,6 +23,12 @@ document.getElementById('signup-form').addEventListener('submit', function (even
     const confirmPassword = document.getElementById('confirm_password').value;
     if (password !== confirmPassword) {
         showError('password', 'Passwords do not match.');
+        event.preventDefault();
+        return;
+    }
+
+    if (!validatePassword(password)) {
+        showError('password', 'Password must be at least 8 characters long and contain at least one capital letter and one digit.');
         event.preventDefault();
         return;
     }
@@ -38,8 +50,25 @@ document.getElementById('signup-form').addEventListener('submit', function (even
     }
 });
 
-function validateUsername(username) {
-    const regex = /^[a-zA-Z]+$/;
+function validatePassword(password) {
+    // Password should be at least 8 characters long
+    // Should contain at least one capital letter
+    // Should contain at least one digit
+
+    const minLength = 8;
+    const hasCapitalLetter = /[A-Z]/.test(password);
+    const hasDigit = /\d/.test(password);
+
+    return password.length >= minLength && hasCapitalLetter && hasDigit;
+}
+
+function validateUsernameForNumber(username) {
+    const regex = /^[a-zA-Z][a-zA-Z]/;
+    return regex.test(username);
+}
+
+function validateUsernameForSymbol(username) {
+    const regex = /^[a-zA-Z0-9\s]+$/;
     return regex.test(username);
 }
 
@@ -60,3 +89,15 @@ function resetErrorMessages() {
     const errorMessages = document.querySelectorAll('.error-message');
     errorMessages.forEach(message => message.innerText = '');
 }
+
+// Toggle password visibility when the "Show Password" checkbox is clicked
+document.getElementById('show-password').addEventListener('change', function() {
+    const passwordInput = document.getElementById('password');
+    passwordInput.type = this.checked ? 'text' : 'password';
+});
+
+// Toggle confirm password visibility when the "Show Confirm Password" checkbox is clicked
+document.getElementById('show-confirm-password').addEventListener('change', function() {
+    const confirmPasswordInput = document.getElementById('confirm_password');
+    confirmPasswordInput.type = this.checked ? 'text' : 'password';
+});
