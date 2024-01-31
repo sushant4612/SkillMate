@@ -3,27 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>SkillMate</title>
+    <link rel="stylesheet" href="../assets/css/login.css">
+    <!-- <link rel="stylesheet" href="../assets/css/index.css"> -->
 </head>
 <body>
-    <h2>Login</h2>
+
+    <div class="container">
+
     <form id="login-form">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <span id="show-password-checkbox">
-            <input type="checkbox" id="show-password"> Show Password
-        </span>
-        <br>
-        <button type="button" onclick="performLogin()">Login</button>
+
+        <div class="header">
+        
+            <h3>Log in to SkillMate</h3>
+            
+            <p>Enter your credentials to proceed</p>
+            
+        </div>
+        
+        <div class="sep"></div>
+
+        <div class="inputs">
+        
+            <input type="email" id="username" placeholder="Username or e-mail" autofocus />
+        
+            <input type="password" id="password" placeholder="Password" />
+            <span style="font-size: small; color: rgb(48, 184, 238);" id="show-password-checkbox">
+                <input type="checkbox" id="show-password"> Show Password
+            </span>
+            <p id="error"></p>
+            <button id="submit" type="button" onclick="performLogin()">Login</button>
+
+        </div>
+
     </form>
+
+</div>
 
     <script src="../assets/js/login.js"></script>
 </body>
 </html>
-
-
-
-

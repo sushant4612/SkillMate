@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="icon" href="images/icons/logo_transparent.png"> -->
+    <title>SkillMate</title>
+    <link rel="stylesheet" href="assets/css/index.css">
+</head>
+<body>
+
+    <!-- background video -->
+    <div>
+        <video plays-inline autoplay muted loop class="back-video">
+            <source src="assets/video/production_id_4492643 (2160p).mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- menu option shows in small screen -->
+    <div class="menu" onclick="myFunction(this)">
+        <div class="bar1"></div>
+        <div class="bar2"></div>
+        <div class="bar3"></div>
+    </div>
+
+    <!-- navigation bar -->
+    <header class="header">
+        <a class="main-logo" href="#">SkillMate</a>
+
+        <nav id="navbar" class="navbar">
+            <a href="#">Home</a>
+            <a href="#">How it Works</a>
+            <a href="#">About Us</a>
+            <a href="#">FAQ</a>
+        </nav>
+        <button onclick="document.getElementById('id01').style.display='block'"><a class="login" style="--clr:rgba(206, 46, 206, 0.997)" href="views/login.html"><span>LOGIN</span><i></i></a></button>
+    </header>
+
+    <!-- centered text with create account button -->
+    <div class="moto">
+        <h1 class="responsive-text">Match, Learn, Thrive</h1>
+        <button onclick="document.getElementById('id02').style.display='block'" style="width:auto;"><a class="create-acc" href="views/signup.html">Create account</a></button>
+    </div>
+      
+    <script src="assets/js/index.js"></script>
+</body>
+</html>
