@@ -1,20 +1,22 @@
 <!-- views/signup.html -->
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Signup</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkillMate</title>
     <style>
-        .error-message {
-            color: red;
-        }
+      .error-message {
+        font-size: small;
+        color: red;
+      }
     </style>
-</head>
-<body>
-    <h1>User Signup</h1>
-    <form id="signup-form" action="../api/signup.php" method="post">
+    <link rel="stylesheet" href="../assets/css/signup.css" />
+  </head>
+  <body>
+    <!-- <h1>User Signup</h1> -->
+    <!-- <form id="signup-form" action="../api/signup.php" method="post">
         <label for="username">Username:</label>
         <input type="text" name="username" id="username" required>
         <br>
@@ -45,8 +47,60 @@
         <span class="error-message" id="age-error"></span>
         <br>
         <input type="submit" value="Sign Up">
-    </form>
+    </form> -->
+
+    <div class="container">
+      <form id="signup-form" action="../api/signup.php" method="post">
+        <div class="header">
+          <h3>Sign Up</h3>
+
+          <p>You want to fill out this form</p>
+        </div>
+
+        <div class="sep"></div>
+
+        <div class="inputs">
+          <label class="detail" for="username">Username:</label>
+          <input type="text" name="username" id="username" required />
+          <br />
+          <span class="error-message" id="username-error"></span>
+          <br />
+          <label class="detail" for="password">Password:</label>
+          <input  type="password" name="password" id="password" required />
+          <span id="show-password-checkbox">
+            <input type="checkbox" id="show-password" /> Show Password
+          </span>
+          <br />
+          <label class="detail detail1" for="confirm_password">Confirm Password:</label>
+          <input
+            type="password"
+            name="confirm_password"
+            id="confirm_password"
+            required
+          />
+          <span id="show-confirm-password-checkbox">
+            <input type="checkbox" id="show-confirm-password" /> Show Confirm
+            Password
+          </span>
+          <br />
+          <span class="error-message" id="password-error"></span>
+          <br />
+          <label class="detail" for="email">Email:</label>
+          <input type="email" name="email" id="email" required />
+          <br />
+          <span class="error-message" id="email-error"></span>
+
+          <label class="detail" for="age">Age:</label>
+          <input type="number" name="age" id="age" required />
+          <br />
+          <span class="error-message" id="age-error"></span>
+          <br />
+          <a href="../views/login.html" id="loginLink">Already have an account? Login</a>
+          <input id="submit" type="submit" value="Sign Up" />
+        </div>
+      </form>
+    </div>
 
     <script src="../assets/js/signup.js"></script>
-</body>
+  </body>
 </html>
