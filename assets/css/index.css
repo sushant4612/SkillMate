@@ -1,0 +1,727 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+
+/* Reset default margin and padding for all elements */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+
+.video-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+/* menu option styling */
+.menu {
+    display: inline-block;
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    display: none;
+}
+.bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: 2e0835;
+    margin: 6px 0;
+    transition: 0.4s;
+}
+
+.bar1{
+    width: 35px;
+    height: 5px;
+    background-color: 2e0835;
+    transition: 0.4s;
+}
+
+.change .bar1 {
+    transform: translate(0, 11px) rotate(-45deg);
+}
+  
+.change .bar2 {opacity: 0;}
+  
+.change .bar3 {
+    transform: translate(0, -11px) rotate(45deg);
+}
+
+
+/* Styling for the main logo */
+.main-logo {
+    /* Logo styling */
+    margin-left: 20px;
+    font-weight: 400;
+    font-size: 50px;
+    text-decoration: none;
+    color: white;
+    font-family: 'Abril Fatface', cursive;
+    background: linear-gradient(to right, #2e0835 50%, white 50%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    display: inline-block;
+    animation: gradient-transition 4s infinite;
+}
+@keyframes gradient-transition {
+    0% {
+      background-position: 0%;
+    }
+    100% {
+      background-position: 100%;
+    }
+  }
+
+/* Header styling */
+.header {
+    /* Header styling */
+    font-family: 'Roboto Condensed', sans-serif;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px -1px;
+    margin-left: auto;
+    /* padding-right: 50px; */
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+.navbar {
+    /* Navigation bar styling */
+    margin-left: auto;
+    padding-right: 80px;
+}
+.navbar a {
+    /* Navigation link styling */
+    position: relative;
+    font-size: 18px;
+    color: white;
+    font-weight: 500;
+    text-decoration: none;
+    margin-left: 40px;
+}
+.navbar a::before{
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: rgba(206, 46, 206, 0.997);
+    transition: .3s;
+}
+.navbar a:hover::before{
+    width: 100%;
+}
+
+.login {
+    /* Login button styling */
+    position: relative;
+    background: #fff;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    letter-spacing: 0.1em;
+    font-weight: 400;
+    transition: 0.5s;
+    padding: 10px 25px;
+}
+.login:hover{
+    letter-spacing: 0.25em;
+    color: var(--clr);
+    background-color: var(--clr);
+    box-shadow: 0 0 10px var(--clr);
+}
+.login::before{
+    content: '';
+    position: absolute;
+    inset: 2px;
+    background: #470153 ;
+
+}
+.login span{
+    position: relative;
+    z-index: 1;
+}
+
+.login i{
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+.login i::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 80%;
+    width: 8px;
+    height: 4px;
+    background: #27282c;
+    transform: translateX(-50%) skewX(325deg);
+    transition: 0.5s;
+}
+.login:hover i::before{
+    width: 20px;
+    left: 20%;
+}
+.login i{
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+.login i::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 20%;
+    width: 10px;
+    height: 4px;
+    background: #470153;
+    transform: translateX(-45%) skewX(325deg);
+    transition: 0.5s;
+}
+.login:hover i::after{
+    width: 20px;
+    left: 80%;
+}
+button{
+    border: none;
+    margin-right: 10px;
+}
+
+/* Styling for the centered text */
+.moto{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+    color: #fff;
+    font-family: 'Abril Fatface', cursive;
+    padding: 20px;
+    max-width: 80%;
+}
+.responsive-text{
+    font-size: 4vw;
+    font-weight: bolder;
+    margin: 0;
+}
+
+/* style for crete button */
+.moto button{
+    margin-top: 30px;
+    width: 175px;
+    height: 40px;
+    text-decoration: none;
+    /* width: 10vw; */
+    cursor: pointer;
+    background-color: #470153;
+    border-radius: 10px;
+}
+
+.moto button:hover{
+    background-color:#9a19b0b6;
+}
+
+button .create-acc{
+    color: white;
+    font-size: 20px;
+    font-weight: 300;
+    width: 50px;
+    text-decoration: none;
+}
+
+
+/* Media queries for different screen sizes */
+/* mobile */
+@media(max-width : 480px){
+    .back-video{
+        position: fixed;
+        width: auto;
+        height: 100%;
+        z-index: -1;
+        left: -423px;
+    } 
+    .main-logo{
+        position: fixed;
+        left: 0px;
+        font-size: 2.5em;
+        font-family: 'Abril Fatface', cursive;
+        background: linear-gradient(to right, #2e0835 50%, white 50%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        display: inline-block;
+        animation: gradient-transition 4s infinite;
+     }
+    .header{
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    
+    .navbar {
+        position: fixed;
+        padding-top: 20vh;
+        display: none;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        gap: 60px;
+        background-color: #000000fc;
+        height: 100vh;
+        width: 100vw;
+        
+        transition: ease-in 0.3s;
+    }
+
+    .moto{
+        display: block;
+    }
+    
+    .menu{
+        display: block;
+        z-index: 1000;
+    }
+    
+
+    .responsive-text{
+        font-size: 40px;
+        overflow:visible;
+    }
+
+    .moto button{
+        width: 175px;
+    }
+
+    .header > button{
+        display: none;
+        position: fixed;
+        bottom: 10vh;
+        margin-right: 45px;
+    }
+
+} 
+
+/* extra small devices */
+@media(min-width : 481px) and (max-width : 767px){
+    .back-video{
+        position: fixed;
+        width: auto;
+        height: 100%;
+        left: -423px;
+        z-index: -1;
+    }
+    
+    .main-logo{
+        position: fixed;
+        left: 0px;
+        font-size: 2.5em;
+        font-family: 'Abril Fatface', cursive;
+        background: linear-gradient(to right, #2e0835 50%, white 50%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        color: transparent;
+        display: inline-block;
+        animation: gradient-transition 4s infinite;
+     }
+    .header{
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .navbar {
+        position: fixed;
+        padding-top: 20vh;
+        display: none;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+        gap: 60px;
+        background-color: #000000fc;
+        height: 100vh;
+        width: 100vw;
+        
+        transition: ease-in 0.3s;
+    }
+
+    .moto{
+        display: block;
+    }
+    
+    .menu{
+        display: block;
+        z-index: 1000;
+    }
+    
+
+    .responsive-text{
+        font-size: 40px;
+        overflow:visible;
+    }
+
+    .moto button{
+        width: 175px;
+    }
+
+    .header > button{
+        display: none;
+        position: fixed;
+        bottom: 10vh;
+        margin-right: 45px;
+    }
+
+} 
+
+/* Small tablets */
+@media(min-width : 768px) and (max-width : 991px){
+    .back-video{
+        position: fixed;
+        width: auto;
+        height: 100%;
+        left: -200px;
+        z-index: -1;
+    }
+
+    .navbar{
+        margin-right: -50px;
+    }
+    .main-logo{
+        position: fixed;
+        left: 0px;
+        font-size: 40px;
+    }
+
+    .header{
+        margin-top: 22px;
+    }
+}
+
+/* Large tablet/laptops */
+@media(min-width : 992px) and (max-width : 1420px){
+    .back-video{
+        position: fixed;
+        width: auto;
+        height: 100%;
+        left: 0px;
+        z-index: -1;
+    }
+} 
+
+/* Desktops */
+@media(min-width : 1421px) and (max-width : 1919px){
+    .back-video{
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: -1;
+        width: 100%;
+        height: auto;
+    }
+}
+
+/* Extra large screens */
+@media(min-width : 1920px){
+    .back-video{
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: auto;
+        z-index: -1;
+    }
+}
+
+
+/* LOGIN FORM */
+
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  
+  /* Set a style for all buttons */
+  .loginFormButton {
+    background-color: #470153;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .loginFormButton:hover {
+    opacity: 0.8;
+  }
+  
+  /* Extra styles for the cancel button */
+  .cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+    border-radius: 10px;
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+  
+  /* Center the image and position the close button */
+  .imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+  }
+  
+  img.avatar {
+    width: 30%;
+    /* border-radius: 50%; */
+  }
+  
+  .container {
+    padding: 16px;
+  }
+  
+  span.psw {
+    float: right;
+    /* padding-top: 16px; */
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+  
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgb(169 106 179 / 26%); /* Black w/ opacity */
+    padding-top: 60px;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+    /* height: 30%; */
+  }
+  
+  /* The Close Button (x) */
+  .closebtn {
+    position: absolute;
+    right: 25px;
+    top: 0;
+    color: #000;
+    font-size: 35px;
+    font-weight: bold;
+  }
+  
+  .closebtn:hover,
+  .closebtn:focus {
+    color: red;
+    cursor: pointer;
+  }
+  
+  /* Add Zoom Animation */
+  .animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+  
+  @-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+  }
+    
+  @keyframes animatezoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+  }
+  
+  /* Change styles for span and cancel button on extra small screens */
+  @media screen and (max-width: 300px) {
+    span.psw {
+       display: block;
+       float: none;
+    }
+    .cancelbtn {
+       width: 100%;
+    }
+  }
+
+  label {
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+
+
+
+
+  /* create account */
+
+  
+/* Full-width input fields */
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  /* Add a background color when the inputs get focus */
+  input[type=text]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline: none;
+  }
+  
+  /* Set a style for all buttons */
+    .cancelbtn-createAccount, .signupbtn-createAccount {
+    background-color: #04AA6D;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    opacity: 0.9;
+  }
+  
+  button:hover {
+    opacity:1;
+  }
+  
+  /* Extra styles for the cancel button */
+  .cancelbtn-createAccount {
+    padding: 14px 20px;
+    background-color: #f44336;
+  }
+  
+  /* Float cancel and signup buttons and add an equal width */
+  .cancelbtn-createAccount, .signupbtn-createAccount {
+    float: left;
+    width: 50%;
+    border-radius: 10px;
+  }
+
+  .signupheading-createAccount {
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+  
+  .detail-createAccount {
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+
+
+  /* Add padding to container elements */
+  .container-createAccount {
+    padding: 16px;
+  }
+  
+  /* The Modal (background) */
+  .modal-createAccount {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(169 106 179 / 26%);
+    padding-top: 50px;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content-createAccount {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+  }
+  
+  /* Style the horizontal ruler */
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+   
+  /* The Close Button (x) */
+  .close-createAccount {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+  }
+  
+  .close-createAccount,
+  .close-createAccount:focus {
+    color: #f44336;
+    cursor: pointer;
+  }
+  
+  .clearfix {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* Clear floats */
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+  
+  /* Change styles for cancel button and signup button on extra small screens */
+  @media screen and (max-width: 300px) {
+    .cancelbtn, .signupbtn {
+       width: 100%;
+    }
+  }
+
+  #animate-createAccount {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+  }
+  
+  @-webkit-keyframes animate-createAccountzoom {
+    from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}
+  }
+    
+  @keyframes animate-createAccountzoom {
+    from {transform: scale(0)} 
+    to {transform: scale(1)}
+  }

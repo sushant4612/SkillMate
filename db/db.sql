@@ -84,3 +84,4 @@ CREATE TABLE leaderboard (
     PRIMARY KEY (user_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
+ALTER TABLE users ADD COLUMN reset_token VARCHAR(255);

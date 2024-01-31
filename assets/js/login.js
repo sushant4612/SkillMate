@@ -1,7 +1,7 @@
 function performLogin() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-
+    const errorMsg = document.getElementById('error');
     // Perform AJAX request
     fetch('../api/login.php', {
         method: 'POST',
@@ -15,14 +15,14 @@ function performLogin() {
         console.log(data);  // Log the response
         // Handle the response from the server
         if (data.includes('success')) {
-            alert('Login successful!');
+            errorMsg.innerHTML = "Login successful!"
         } else {
-            alert('Invalid username or password.');
+            errorMsg.innerHTML = "Invalid username or password"
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('An error occurred. Please try again.');
+        errorMsg.innerHTML = "An error occurred. Please try again."
     });    
 }
 
