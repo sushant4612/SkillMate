@@ -16,6 +16,7 @@ function performLogin() {
         // Handle the response from the server
         if (data.includes('success')) {
             errorMsg.innerHTML = "Login successful!"
+            window.location.href = "home.html"
         } else {
             errorMsg.innerHTML = "Invalid username or password"
         }
