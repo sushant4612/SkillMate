@@ -1,9 +1,9 @@
 // assets/js/signup.js
 
-document.getElementById('signup-form').addEventListener('submit', function (event) {
+document.getElementById('signup-form').addEventListener('submit', async function (event) {
     // Reset previous error messages
     resetErrorMessages();
-
+    event.preventDefault();
     // Validate username (letters only)
     const username = document.getElementById('username').value;
     if (!validateUsernameForNumber(username)) {
@@ -47,6 +47,32 @@ document.getElementById('signup-form').addEventListener('submit', function (even
         showError('age', 'Age must be a number.');
         event.preventDefault();
         return;
+    }
+
+    const formData = new FormData(this);
+
+    try {
+        const response = await fetch('../api/signup.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.status === 'success') {
+            // Redirect to success.html after successful registration
+            window.location.href = 'intrest.html';
+        } else {
+            // Display error message on the form
+            if(data.message.includes("Email")){
+                showError('email', data.message);
+            }else{
+                showError('username', data.message);
+            }
+            
+        }
+    } catch (error) {
+        console.error('Error:', error);
     }
 });
 
