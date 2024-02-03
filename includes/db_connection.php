@@ -9,6 +9,5 @@
     if (!$db) {
         die("Error in database connection: " . pg_last_error());
     }else{
-        echo "Connected succesfully";
     }
 ?>

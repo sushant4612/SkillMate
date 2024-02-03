@@ -10,7 +10,6 @@ class SignupController {
         $this->userModel = new UserModel($db);
     }
 
-
     public function signupUser($username, $password, $confirmPassword, $email, $age) {
         // Validate input
         if (!$this->validateInput($username, $password, $confirmPassword, $email, $age)) {
@@ -37,6 +36,8 @@ class SignupController {
         $result = $this->userModel->createUser($username, $hashedPassword, $email, $age);
 
         if ($result) {
+            session_start();
+            $_SESSION['username'] = $username;
             $this->sendSuccessResponse("Registration successful! You can now login.");
         } else {
             $this->sendErrorResponse("Error: Registration failed.");
