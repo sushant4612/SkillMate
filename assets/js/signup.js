@@ -61,7 +61,7 @@ document.getElementById('signup-form').addEventListener('submit', async function
 
         if (data.status === 'success') {
             // Redirect to success.html after successful registration
-            window.location.href = 'intrest.html';
+            window.location.href = 'intrest.php';
         } else {
             // Display error message on the form
             if(data.message.includes("Email")){
