@@ -1,6 +1,5 @@
 body {
-    /*background-image: url(http://kreativo.se/backlogin.jpg);*/
-    background-image: url("../images/books.avif");
+    background-image: url('/assets/images/img.svg');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -12,6 +11,10 @@ body {
     padding-top: 45px;
 }
 
+body {
+    background-color: #1b1717; /* Adjust the color based on your preference */
+    color: #fff; /* Adjust the text color based on your preference */
+}
 #loginLink{
     text-decoration: none;
     font-size: small;
@@ -29,7 +32,7 @@ input#submit{
 }
 .detail{
     font-family: sans-serif;
-    color: black;
+    color: #711def;
 }
 
 .detail1{
@@ -60,14 +63,14 @@ input#submit{
 }
 
 #signup-form .header h3 {
-    color: #333333;
+    color: #711def;
     font-size: 24px;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
 #signup-form .header p {
-    color: #8f8f8f;
+    color: #711def;
     font-size: 14px;
     font-weight: 300;
 }
@@ -84,7 +87,7 @@ input#submit{
 }
 
 #signup-form .inputs label {
-    color: #000000;
+    color: #711def;
     font-size: 13px;
     font-weight: 300;
     letter-spacing: 1px;
@@ -146,8 +149,8 @@ input#age {
         #a4b0cb);
     background: -webkit-gradient(
         linear, left top, left bottom, 
-        from(#b9c5dd),
-        to(#a4b0cb));
+        from(#711def),
+        to(#711def));
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
     border-radius: 5px;
@@ -170,12 +173,6 @@ input#age {
 }
 
 #signup-form .inputs #submit:hover {
-    background: -moz-linear-gradient(
-        top,
-        #a4b0cb 0%,
-        #b9c5dd);
-    background: -webkit-gradient(
-        linear, left top, left bottom, 
-        from(#a4b0cb),
-        to(#b9c5dd));
+    cursor: pointer;
+    opacity: 0.9;
 }
