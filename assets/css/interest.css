@@ -1,0 +1,87 @@
+/* assets/css/interest.css */
+
+body {
+    background-image: url('/assets/images/img.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1b1717; /* Adjust the color based on your preference */
+    color: #fff; /* Adjust the text color based on your preference */
+    font-family: "Helvetica Neue", Helvetica, Arial;
+}
+
+.container {
+    width: 80%;
+    max-width: 600px;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    animation: slide-in 0.5s ease-out;
+}
+
+@keyframes slide-in {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+h2 {
+    text-align: center;
+    color: #711def;
+    font-size: 36px;
+    margin-bottom: 20px;
+    letter-spacing: 2px; /* Add letter spacing */
+    font-weight: 500; /* Make font bold */
+    text-transform: uppercase;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2); /* Add text shadow */
+}
+
+.interest-list {
+    margin-bottom: 20px;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    transform: scale(1.5); /* Make checkboxes larger */
+}
+
+label {
+    font-size: 18px;
+    color: #555;
+    display: inline-block;
+    margin-bottom: 3px;
+}
+
+input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #711def;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    opacity: 0.9;
+}

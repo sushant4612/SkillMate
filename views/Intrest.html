@@ -1,0 +1,59 @@
+<!-- views/interest.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Interests</title>
+    <link rel="stylesheet" href="../assets/css/interest.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Select Your Interests</h2>
+        <form id="interest-form" action="../api/interests.php" method="post">
+            <div class="interest-list">
+                <input type="checkbox" id="programming" name="interests[]" value="Basic programming">
+                <label for="programming">Basic programming</label><br>
+
+                <input type="checkbox" id="designing" name="interests[]" value="Graphic designing">
+                <label for="designing">Graphic designing</label><br>
+
+                <input type="checkbox" id="marketing" name="interests[]" value="Digital marketing">
+                <label for="marketing">Digital marketing</label><br>
+
+                <input type="checkbox" id="analysis" name="interests[]" value= "Data entry and analysis">
+                <label for="analysis">Data entry and analysis</label><br>
+
+                <input type="checkbox" id="photography" name="interests[]" value="Photography">
+                <label for="photography">Photography</label><br>
+
+                <input type="checkbox" id="editing" name="interests[]" value="Video editing">
+                <label for="editing">Video editing</label><br>
+
+                <input type="checkbox" id="blogging" name="interests[]" value="Blogging">
+                <label for="blogging">Blogging</label><br>
+
+                <input type="checkbox" id="learning" name="interests[]" value="Language learning">
+                <label for="learning">Language learning</label><br>
+
+                <input type="checkbox" id="development" name="interests[]" value="Web development">
+                <label for="development">Web development</label><br>
+
+                <input type="checkbox" id="skills" name="interests[]" value="Basic IT skills">
+                <label for="skills">Basic IT skills</label><br>
+
+                <input type="checkbox" id="speaking" name="interests[]" value="Public speaking">
+                <label for="speaking">Public speaking</label><br>
+
+                <input type="checkbox" id="cooking" name="interests[]" value="Cooking">
+                <label for="cooking">Cooking</label><br>
+
+                <input type="checkbox" id="meditation" name="interests[]" value="Meditation">
+                <label for="meditation">Meditation</label><br>
+            </div>
+            <input type="submit" value="Submit" class="submit-btn">
+        </form>
+    </div>
+</body>
+</html>

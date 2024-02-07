@@ -84,4 +84,20 @@ CREATE TABLE leaderboard (
     PRIMARY KEY (user_id),
     FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
-ALTER TABLE users ADD COLUMN reset_token VARCHAR(255);
+
+INSERT INTO interests (interest_name) VALUES
+('Basic programming'),
+('Graphic designing'),
+('Digital marketing'),
+('Data entry and analysis'),
+('Photography'),
+('Video editing'),
+('Blogging'),
+('Language learning'),
+('Web development'),
+('Basic IT skills'),
+('Public speaking'),
+('Cooking'),
+('Meditation'),
+('DIY Home repairs'),
+('Basic carpentry');
