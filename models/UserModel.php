@@ -8,6 +8,30 @@ class UserModel {
         $this->db = $db;
     }
 
+    public function getUserIdByUsername($username) {
+        $query = "SELECT user_id FROM users WHERE username = $1";
+        $result = pg_query_params($this->db, $query, array($username));
+        if (!$result) {
+            // Handle query error
+            return null;
+        }
+        $row = pg_fetch_assoc($result);
+        return $row['user_id'] ?? null;
+    }
+
+    public function clearInterests($userId) {
+        $query = "DELETE FROM user_interests WHERE user_id = $userId";
+        return pg_query($this->db, $query);
+    }
+
+    public function addInterest($username, $interest) {
+        // Insert user's interest into the database
+        $query = "INSERT INTO user_interests (user_id, interest_id) VALUES ((SELECT user_id FROM users WHERE username = $1), (SELECT interest_id FROM interests WHERE interest_name = $2))";
+        $result = pg_query_params($this->db, $query, array($username, $interest));
+
+        return $result;
+    }
+
     // UserModel.php
 
     public function updatePassword($userId, $newPassword) {
