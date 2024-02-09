@@ -8,6 +8,12 @@ class LoginController {
         global $db;
         $this->userModel = new UserModel($db);
     }
+
+    public function getLoggedInUserId($username) {
+        $uId = $this->userModel->getUserIdByUsername($username);
+        return $uId;
+    }
+
     
     public function loginUserByUsername($username, $password) {
         $user = $this->userModel->getUserByUsername($username);
