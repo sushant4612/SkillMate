@@ -23,6 +23,12 @@ if (isset($data->username) && isset($data->password)) {
         // Input is a username
         $loginController->loginUserByUsername($input, $password);
     }
+    // Get the UID of the logged-in user
+    $uid = $loginController->getLoggedInUserId($input); 
+    session_start();
+    // Set session variables
+    $_SESSION['uid'] = $uid;
+    $_SESSION['username'] = $input;
 } else {
     // Handle invalid or missing data
     http_response_code(400); // Bad Request
