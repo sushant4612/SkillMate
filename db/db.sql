@@ -5,6 +5,7 @@ DROP TABLE photos;
 DROP TABLE chat_messages;
 DROP TABLE friend_requests;
 DROP TABLE recommendations;
+DROP TABLE friendships;
 DROP TABLE user_interests;
 DROP TABLE interests;
 DROP TABLE users;
@@ -31,6 +32,15 @@ CREATE TABLE user_interests (
     user_interest_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
     interest_id INT REFERENCES interests(interest_id)
+);
+
+CREATE TABLE friendships (
+    friendship_id SERIAL PRIMARY KEY,
+    user_id1 INT REFERENCES users(user_id),
+    user_id2 INT REFERENCES users(user_id),
+    status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE recommendations (
@@ -60,6 +70,7 @@ CREATE TABLE photos (
     photo_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
     image_path VARCHAR(255) NOT NULL,
+    caption TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

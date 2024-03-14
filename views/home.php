@@ -1,5 +1,5 @@
 <?php
-include('../controllers/user.php');
+  session_start();
 ?>
 
 <!DOCTYPE html>
@@ -19,17 +19,32 @@ include('../controllers/user.php');
                 SkillMate
             </h2>
             <div class="search-bar">
-               <img id="icon" src="/icons/search-interface-symbol.png"  alt="">
+               <img id="icon" src=""  alt="">
                <input type="search" placeholder="Search for connection">
             </div>
             <div class="create">
                 <label class="btn btn-primary" for="create-post">Create</label>
                 <div class="profile-photo">
-                    <img src="./images/profile-1.jpg" alt="">
+                    <img src="" alt="">
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- Form for creating a new post -->
+    <div class="modal-overlay" id="modal-overlay">
+    <div class="modal-content">
+        <!-- Form for creating a new post -->
+        <form id="post-form" action="../controllers/.php" method="post" enctype="multipart/form-data">
+            <label for="post-image">Choose an image:</label>
+            <input type="file" name="post_image" id="post-image" accept="image/*" required>
+            <textarea name="post_content" id="post-content" cols="30" rows="5" placeholder="Write your caption here" required></textarea>
+            <button id="add-post-btn">Add Post</button>
+        </form>
+        <!-- Close button for modal -->
+        <span class="modal-close" id="modal-close">&times;</span>
+    </div>
+</div>
 
     <!-------------------------------- MAIN ----------------------------------->
     <main>
@@ -38,12 +53,12 @@ include('../controllers/user.php');
             <div class="left">
                 <a class="profile">
                     <div class="profile-photo">
-                        <img src="./images/profile-1.jpg">
+                        <img src=">
                     </div>
                     <div class="handle">
                         <h4></h4>
                         <p class="text-muted">
-                            <?php echo "@".$username ?>
+                            <?php echo $_SESSION['username']; ?>
                         </p>
                     </div>
                 </a>
@@ -51,22 +66,22 @@ include('../controllers/user.php');
                 <!----------------- SIDEBAR -------------------->
                 <div class="sidebar">
                     <a class="menu-item active">
-                        <img src="icons/home.png" id="icon" style="padding-left: 20px;" alt="">
+                        <img src="" id="icon" style="padding-left: 20px;" alt="">
                         <!-- <span><i class="uil uil-home"></i></span> -->
                         <h3>Home</h3>   
                     </a>
                     <a class="menu-item">
-                        <img src="icons/compass.png" id="icon" style="padding-left: 20px;" alt="">
+                        <img src="" id="icon" style="padding-left: 20px;" alt="">
                         <h3>Explore</h3>
                     </a>
                     <a class="menu-item"  id="notifications">
-                        <img src="/icons/notification-bell.png" id="icon" style="padding-left: 20px;" alt="">
+                        <img src="" id="icon" style="padding-left: 20px;" alt="">
                         <h3>Notification</h3>
                         <!--------------- NOTIFICATION POPUP --------------->
                         <div class="notifications-popup">
                             <div>
                                 <div class="profile-photo">
-                                    <img src="./images/profile-2.jpg">
+                                    <img src="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Sushant</b> accepted your friend request
@@ -75,7 +90,7 @@ include('../controllers/user.php');
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="./images/profile-3.jpg">
+                                    <img src="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Chetana</b> commented on your post
@@ -84,7 +99,7 @@ include('../controllers/user.php');
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="./images/profile-4.jpg">
+                                    <img src="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Vaibhavi</b> and <b>283 Others</b> liked your post
@@ -93,7 +108,7 @@ include('../controllers/user.php');
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="./images/profile-5.jpg">
+                                    <img src="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Nishidha</b> commented on a post you are tagged in
@@ -102,7 +117,7 @@ include('../controllers/user.php');
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="./images/profile-6.jpg">
+                                    <img src="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Vaishali</b> commented on a post you are tagged in
@@ -111,7 +126,7 @@ include('../controllers/user.php');
                             </div>
                             <div>
                                 <div class="profile-photo">
-                                    <img src="./images/profile-7.jpg">
+                                    <img src="">
                                 </div>
                                 <div class="notification-body">
                                     <b>Rohit</b> commented on your post
@@ -122,392 +137,43 @@ include('../controllers/user.php');
                         <!--------------- END NOTIFICATION POPUP --------------->
                     </a>
                     <a class="menu-item" id="messages-notifications">
-                        <img src="icons/chat.png" id="icon" style="padding-left: 20px;" alt="">
+                        <img src="" id="icon" style="padding-left: 20px;" alt="">
                         <h3>Messages</h3>
                     </a>
                     <a class="menu-item">
-                        <img src="icons/calendar (1).png" id="icon" style="padding-left: 20px;" alt="">
+                        <img src="" id="icon" style="padding-left: 20px;" alt="">
                         <h3>Schedule</h3>
                     </a>
                     <a class="menu-item">
-                        <img src="icons/connection.png"  id="icon" style="padding-left: 20px;" alt="">
+                        <img src=""  id="icon" style="padding-left: 20px;" alt="">
                         <h3>Network</h3>
                     </a>
                     <a class="menu-item" id="theme">
-                        <img src="/icons/theme.png" id="icon" style="padding-left: 20px;" alt="">
+                        <img src="" id="icon" style="padding-left: 20px;" alt="">
                         <h3>Theme</h3>
                     </a>
                     <a class="menu-item">
-                        <img src="icons/setting.png" id="icon" style="padding-left: 20px;" alt="">
+                        <img src="" id="icon" style="padding-left: 20px;" alt="">
                         <h3>Setting</h3>
                     </a>
                 </div>
-                <!----------------- END OF SIDEBAR -------------------->
-                <label class="btn btn-primary" for="create-post">Create Post</label>
+
+                
+
+                <!-- Button to toggle the visibility of the post creation form -->
+                <label class="btn btn-primary" for="create-post" id="create-post-btn">Create Post</label>
             </div>
 
             <!----------------- MIDDLE -------------------->
             <div class="middle">
-                <form action="" class="create-post">
-                    <div class="profile-photo">
-                        <img src="./images/profile-1.jpg">
-                    </div>
-                    <input type="text" placeholder="What's on your mind, reaaaaa ?" id="create-post">
-                    <input type="submit" value="Post" class="btn btn-primary">
-                </form>
+                
                 <!----------------- FEEDS -------------------->
+
+                
+
                 <div class="feeds">
                     <!----------------- FEED 1 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-13.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Shobojeet Beera</h3>
-                                    <small>Delhi, 15 Minutes Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="img/175827174-113c97f1-9895-4a37-ba7d-37aa5040f63e.jpeg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Vaibhavi</b> and <b>23 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Shobojeet Beera</b> Completed my Blockchain - Basics to Advanced[2022]
-                            <span class="harsh-tag">#blockchain</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 1 -------------------->
-
-                    <!----------------- FEED 2 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-10.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Ajay Thakur</h3>
-                                    <small>Bihar, 2 Hours Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="img/constructor-vs-method-in-java.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-11.jpg"></span>
-                            <span><img src="./images/profile-5.jpg"></span>
-                            <span><img src="./images/profile-16.jpg"></span>
-                            <p>Liked by <b>Sushant</b> and <b>23 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Ajay Thakur</b> Today i learned difference constructor methods 
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            Viewcomments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 2 -------------------->
-
-                    <!----------------- FEED 3 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-4.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Rashme Thakur</h3>
-                                    <small>Pune, 50 Minutes Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="img/12-modern-art-painting-the-design-studio-original-imag3ygyzhhzrqhv.webp">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-12.jpg"></span>
-                            <span><img src="./images/profile-13.jpg"></span>
-                            <span><img src="./images/profile-14.jpg"></span>
-                            <p>Liked by <b>Amey</b> and <b>33 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Rashme thakur</b>I was feeling bor so i did this painting  #painting # 
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 50 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 3 -------------------->
-
-                    <!----------------- FEED 4 -------------------->
-                    <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-5.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Sushant</h3>
-                                    <small>Pune, 1 Hour Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="img/e03edbe588d3866d539e5bbb35d9080c.jpeg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>vaishalo</b> and <b>5, 323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b></b> !(succeed == try())
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 540 comments
-                        </div>
-                    </div>
-                    <!----------------- END OF FEED 4 -------------------->
-
-                    <!----------------- FEED 5 -------------------->
-                    <!-- <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-7.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Keylie Hadid</h3>
-                                    <small>Dubai, 3 Hours Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-7.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Riana Rose</b> and <b>1, 226 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Keylie Hadid</b> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem obcaecati nisi veritatis quisquam eius accusantium rem quo repellat facilis neque.
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 199 comments
-                        </div>
-                    </div> -->
-                    <!----------------- END OF FEED 5 -------------------->
-
-                    <!----------------- FEED 6 -------------------->
-                    <!-- <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-15.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Benjamin Dwayne</h3>
-                                    <small>New York, 5 Hours Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-2.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Ernest Achiever</b> and <b>2, 323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Benjamin Dwayne</b> Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum, consequuntur!
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 277 comments
-                        </div>
-                    </div> -->
-                    <!----------------- END OF FEED 6 -------------------->
-
-                    <!----------------- FEED 7 -------------------->
-                    <!-- <div class="feed">
-                        <div class="head">
-                            <div class="user">
-                                <div class="profile-photo">
-                                    <img src="./images/profile-3.jpg">
-                                </div>
-                                <div class="info">
-                                    <h3>Indiana Ellison</h3>
-                                    <small>Qatar, 8 Hours Ago</small>
-                                </div>
-                            </div>
-                            <span class="edit">
-                                <i class="uil uil-ellipsis-h"></i>
-                            </span>
-                        </div>
-
-                        <div class="photo">
-                            <img src="./images/feed-6.jpg">
-                        </div>
-
-                        <div class="action-buttons">
-                            <div class="interaction-buttons">
-                                <span><i class="uil uil-heart"></i></span>
-                                <span><i class="uil uil-comment-dots"></i></span>
-                                <span><i class="uil uil-share-alt"></i></span>
-                            </div>
-                            <div class="bookmark">
-                                <span><i class="uil uil-bookmark-full"></i></span>
-                            </div>
-                        </div>
-
-                        <div class="liked-by">
-                            <span><img src="./images/profile-10.jpg"></span>
-                            <span><img src="./images/profile-4.jpg"></span>
-                            <span><img src="./images/profile-15.jpg"></span>
-                            <p>Liked by <b>Benjamin Dwayne</b> and <b>2, 323 others</b></p>
-                        </div>
-
-                        <div class="caption">
-                            <p><b>Indiana Ellison</b> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consequuntur itaque quasi autem pariatur ducimus eligendi, qui odio molestias at molestiae. 
-                            <span class="harsh-tag">#lifestyle</span></p>
-                        </div>
-
-                        <div class="comments text-muted">
-                            View all 277 comments
-                        </div>
-                    </div> -->
-                    <!----------------- END OF FEED 7 -------------------->
                 </div>
-                <!----------------- END OF FEEDS -------------------->
             </div>
              <!----------------- END OF MIDDLE -------------------->
 
@@ -533,7 +199,7 @@ include('../controllers/user.php');
                     <!------- MESSAGES ------->
                     <div class="message">
                         <div class="profile-photo">
-                            <img src="./images/profile-17.jpg">
+                            <img src="">
                         </div>
                         <div class="message-body">
                             <h5>Vaishali Chavan</h5>
@@ -543,7 +209,7 @@ include('../controllers/user.php');
                     <!------- MESSAGES ------->
                     <div class="message">
                         <div class="profile-photo">
-                            <img src="./images/profile-6.jpg">
+                            <img src="">
                         </div>
                         <div class="message-body">
                             <h5>Vaibhavi Bondre</h5>
@@ -553,7 +219,7 @@ include('../controllers/user.php');
                     <!------- MESSAGES ------->
                     <div class="message">
                         <div class="profile-photo">
-                            <img src="./images/profile-8.jpg">
+                            <img src="">
                             <div class="active"></div>
                         </div>
                         <div class="message-body">
@@ -564,7 +230,7 @@ include('../controllers/user.php');
                     <!------- MESSAGES ------->
                     <div class="message">
                         <div class="profile-photo">
-                            <img src="./images/profile-10.jpg">
+                            <img src="">
                         </div>
                         <div class="message-body">
                             <h5>Sahasi</h5>
@@ -574,7 +240,7 @@ include('../controllers/user.php');
                     <!------- MESSAGES ------->
                     <div class="message">
                         <div class="profile-photo">
-                            <img src="./images/profile-3.jpg">
+                            <img src="">
                             <div class="active"></div>
                         </div>
                         <div class="message-body">
@@ -585,7 +251,7 @@ include('../controllers/user.php');
                     <!------- MESSAGES ------->
                     <div class="message">
                         <div class="profile-photo">
-                            <img src="./images/profile-15.jpg">
+                            <img src="">
                         </div>
                         <div class="message-body">
                             <h5>Aditya </h5>
@@ -601,7 +267,7 @@ include('../controllers/user.php');
                     <div class="request">
                         <div class="info">
                             <div class="profile-photo">
-                                <img src="./images/profile-20.jpg">
+                                <img src="">
                             </div>
                             <div>
                                 <h5>Amey</h5>
@@ -620,7 +286,7 @@ include('../controllers/user.php');
                     <div class="request">
                         <div class="info">
                             <div class="profile-photo">
-                                <img src="./images/profile-18.jpg">
+                                <img src="">
                             </div>
                             <div>
                                 <h5>Ruturaj</h5>
@@ -639,7 +305,7 @@ include('../controllers/user.php');
                     <div class="request">
                         <div class="info">
                             <div class="profile-photo">
-                                <img src="./images/profile-17.jpg">
+                                <img src="">
                             </div>
                             <div>
                                 <h5>Snehal</h5>

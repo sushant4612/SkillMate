@@ -1,5 +1,80 @@
 // Sidebar
 const menuItems = document.querySelectorAll('.menu-item');
+// Get references to the button, modal overlay, and close button
+const createPostBtn = document.getElementById('create-post-btn');
+const modalOverlay = document.getElementById('modal-overlay');
+const modalClose = document.getElementById('modal-close');
+
+// Add event listener to toggle modal visibility when button is clicked
+createPostBtn.addEventListener('click', function() {
+    modalOverlay.style.display = 'block';
+});
+
+// Add event listener to close modal when close button is clicked
+modalClose.addEventListener('click', function() {
+    modalOverlay.style.display = 'none';
+});
+
+
+// Add an event listener to the "Add Post" button
+document.getElementById('add-post-btn').addEventListener('click', function() {
+    // Open the modal for adding a new post
+    document.getElementById('modal-overlay').style.display = 'block';
+});
+
+// Event listener for submitting the post form
+document.getElementById('post-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the default form submission
+
+    // Create a FormData object to store form data
+    var formData = new FormData(this);
+
+    // Send a POST request to the AddPostController.php API
+    fetch('../api/add_post.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Handle the API response
+        if (data.status === 'success') {
+            // Post added successfully, close the modal
+            document.getElementById('modal-overlay').style.display = 'none';
+            // Optionally, reload the page or update the UI
+        } else {
+            // Display an error message if the post addition fails
+            alert(data.message);
+        }
+    })
+    .catch(error => {
+        console.error("error");
+    });
+});
+
+// Event listener for deleting a post
+// Example: You can bind this to a delete button in each post element
+// document.getElementById('delete-post-btn').addEventListener('click', function() {
+//     var postId = this.dataset.postId; // Get the post ID from the button data attribute
+
+//     // Send a POST request to the DeletePostController.php API
+//     fetch('../api/delete_post.php', {
+//         method: 'POST',
+//         body: JSON.stringify({ post_id: postId })
+//     })
+//     .then(response => response.json())
+//     .then(data => {
+//         // Handle the API response
+//         if (data.status === 'success') {
+//             // Post deleted successfully, update the UI or remove the post element
+//         } else {
+//             // Display an error message if the post deletion fails
+//             alert(data.message);
+//         }
+//     })
+//     .catch(error => {
+//         console.error("error");
+//     });
+// });
 
 // Messages 
 const messageNotification = document.querySelector('#messages-notifications');
@@ -208,5 +283,91 @@ Bg3.addEventListener('click', () => {
     changeBG();
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    // Function to fetch and render feed posts
+    function fetchAndRenderFeedPosts() {
+        // Fetch feed posts from the server
+        fetch('../api/get_feed_posts.php')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to retrieve feed posts.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Log the fetched data to the console
+                console.log('Fetched data:', data);
+    
+                // Check if feed_posts property exists and is an array
+                if (Array.isArray(data.feed_posts)) {
+                    // Render the fetched feed posts
+                    renderFeedPosts(data.feed_posts);
+                } else {
+                    throw new Error('Invalid feed data format.');
+                }
+            })
+            .catch(error => {
+                console.error(error.message);
+            });
+    }
+    
+    // Render feed posts initially when the page is loaded
+    fetchAndRenderFeedPosts();
+
+    // Function to render feed posts
+    function renderFeedPosts(feedPosts) {
+        const feedsContainer = document.querySelector('.feeds');
+    
+        // Clear existing feed posts
+        feedsContainer.innerHTML = '';
+    
+        // Iterate over each feed post and create HTML markup
+        feedPosts.forEach(post => {
+            const feedMarkup = `
+                <div class="feed">
+                    <div class="head">
+                        <div class="user">
+                            <div class="profile-photo">
+                                <img src="./images/profile-${post.user_id}.jpg">
+                            </div>
+                            <div class="info">
+                                <h3>${post.username}</h3>
+                                <small>${post.location}, ${post.timestamp}</small>
+                            </div>
+                        </div>
+                        <span class="edit">
+                            <i class="uil uil-ellipsis-h"></i>
+                        </span>
+                    </div>
+                    <div class="photo">
+                        <img src="${post.image_path}">
+                    </div>
+                    <div class="action-buttons">
+                        <div class="interaction-buttons">
+                            <span><i class="uil uil-heart"></i></span>
+                            <span><i class="uil uil-comment-dots"></i></span>
+                            <span><i class="uil uil-share-alt"></i></span>
+                        </div>
+                        <div class="bookmark">
+                            <span><i class="uil uil-bookmark-full"></i></span>
+                        </div>
+                    </div>
+                    <div class="liked-by">
+                        <!-- Liked by users -->
+                    </div>
+                    <div class="caption">
+                        <p><b>${post.username}</b> ${post.caption}</p>
+                    </div>
+                    <div class="comments text-muted">
+                        View comments
+                    </div>
+                </div>
+            `;
+    
+            // Append the feed markup to the feeds container
+            feedsContainer.insertAdjacentHTML('beforeend', feedMarkup);
+        });
+    }    
+});
 
 
