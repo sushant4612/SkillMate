@@ -147,7 +147,16 @@ class UserModel {
         return pg_query($this->db, $query);
     }
 
-    // Other methods for updating, deleting, or retrieving user data...
+    public function getUserById($uid) {
+        $query = "SELECT * FROM users WHERE user_id = ?";
+        $params = array($uid);
+        $result = $this->db->query($query, $params);
+        if ($result && $this->db->numRows($result) > 0) {
+            return $this->db->fetchAssoc($result);
+        } else {
+            return false;
+        }
+    }
 }
 
 ?>
