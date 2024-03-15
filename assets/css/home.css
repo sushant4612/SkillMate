@@ -796,7 +796,6 @@ MEDIA QUERIES FOR SMALL TABLETS AND MOBILE PHONES
 
 
 
-
 /* Style for modal overlay */
 .modal-overlay {
     display: none;
@@ -806,21 +805,20 @@ MEDIA QUERIES FOR SMALL TABLETS AND MOBILE PHONES
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
 }
 
 /* Style for modal content */
 .modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    padding: 40px;
+    padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     width: 400px; /* Adjust width as needed */
     max-width: 90%;
+    background-color: #fff;
 }
 
 /* Style for form inside modal */
@@ -833,11 +831,66 @@ MEDIA QUERIES FOR SMALL TABLETS AND MOBILE PHONES
 /* Style for modal close button */
 .modal-close {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
+    top: 10px;
+    right: 10px;
     cursor: pointer;
+    font-size: 24px;
     color: #777;
 }
 
-/* No changes to button styles */
+/* Style for file input */
+#post-image {
+    display: none; /* Hide the original file input */
+}
+
+.custom-file-upload {
+    position: relative;
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 2px solid #007bff;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.custom-file-upload input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+/* Style for textarea */
+#post-content {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+/* Style for add post button */
+#add-post-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#add-post-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Style for text-muted */
+.text-muted {
+    font-size: 12px;
+    color: #666;
+}

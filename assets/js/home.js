@@ -5,21 +5,48 @@ const createPostBtn = document.getElementById('create-post-btn');
 const modalOverlay = document.getElementById('modal-overlay');
 const modalClose = document.getElementById('modal-close');
 
+document.getElementById('add-post-btn').addEventListener('click', function(event) {
+    // Check if the file input has a selected file
+    const fileInput = document.getElementById('post-image');
+    const errorMessage = document.getElementById('image-error');
+    if (fileInput.files.length === 0) {
+        // If no file is selected, display an error message
+        errorMessage.textContent = 'Please select an image.';
+        errorMessage.style.display = 'block';
+        // Prevent the form from being submitted
+        event.preventDefault();
+    } else {
+        // Hide the error message if a file is selected
+        errorMessage.style.display = 'none';
+    }
+});
+
 // Add event listener to toggle modal visibility when button is clicked
-createPostBtn.addEventListener('click', function() {
-    modalOverlay.style.display = 'block';
+// Add event listener to toggle modal visibility when button is clicked
+document.getElementById('create-post-btn').addEventListener('click', function() {
+    document.getElementById('modal-overlay').style.display = 'flex'; // Change display to flex to make it visible
 });
 
 // Add event listener to close modal when close button is clicked
-modalClose.addEventListener('click', function() {
-    modalOverlay.style.display = 'none';
+document.getElementById('modal-close').addEventListener('click', function() {
+    document.getElementById('modal-overlay').style.display = 'none';
 });
 
+window.addEventListener('load', function() {
+    document.getElementById('modal-overlay').style.display = 'none';
 
-// Add an event listener to the "Add Post" button
-document.getElementById('add-post-btn').addEventListener('click', function() {
-    // Open the modal for adding a new post
-    document.getElementById('modal-overlay').style.display = 'block';
+    // Get a reference to the modal overlay and modal content
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalContent = document.querySelector('.modal-content');
+
+    // Add an event listener to the modal overlay
+    modalOverlay.addEventListener('click', function(event) {
+        // Check if the click event target is the modal overlay itself
+        if (event.target === modalOverlay) {
+            // Close the modal by hiding the modal overlay
+            modalOverlay.style.display = 'none';
+        }
+    });
 });
 
 // Event listener for submitting the post form
@@ -41,15 +68,31 @@ document.getElementById('post-form').addEventListener('submit', function(event) 
             // Post added successfully, close the modal
             document.getElementById('modal-overlay').style.display = 'none';
             // Optionally, reload the page or update the UI
+        } 
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
+
+
+document.getElementById('logout-button').addEventListener('click', function() {
+    fetch('../api/logout.php', {
+        method: 'POST',
+    })
+    .then(response => {
+        if (response.ok) {
+            // Redirect the user to the login page after successful logout
+            window.location.href = '../index.php';
         } else {
-            // Display an error message if the post addition fails
-            alert(data.message);
+            throw new Error('Failed to logout');
         }
     })
     .catch(error => {
-        console.error("error");
+        console.error('Error:', error);
     });
 });
+
 
 // Event listener for deleting a post
 // Example: You can bind this to a delete button in each post element
@@ -323,6 +366,46 @@ document.addEventListener('DOMContentLoaded', function() {
     
         // Iterate over each feed post and create HTML markup
         feedPosts.forEach(post => {
+
+            // Current date
+            var givenTimestamp = new Date(post.created_at);
+
+            // Current date
+            var currentDate = new Date();
+            
+            // Calculate time difference in milliseconds
+            var timeDifference = currentDate - givenTimestamp;
+            
+            // Convert milliseconds to seconds
+            var secondsDifference = Math.floor(timeDifference / 1000);
+            
+            // Calculate elapsed time in seconds, minutes, hours, and days
+            var seconds = secondsDifference % 60;
+            var minutes = Math.floor(secondsDifference / 60) % 60;
+            var hours = Math.floor(secondsDifference / (60 * 60)) % 24;
+            var days = Math.floor(secondsDifference / (60 * 60 * 24));
+            
+            // Define function to format time
+            function formatTime(unit, label) {
+                return unit > 0 ? unit + " " + label + (unit > 1 ? "s" : "") : "";
+            }
+            
+            // Define function to format time difference
+            function formatTimeDifference(days, hours, minutes, seconds) {
+                if (days > 0) {
+                    return formatTime(days, "day");
+                } else if (hours > 0) {
+                    return formatTime(hours, "hour");
+                } else if (minutes > 0) {
+                    return formatTime(minutes, "minute");
+                } else {
+                    return formatTime(seconds, "second");
+                }
+            }
+            
+            // Format the time difference
+            var formattedTimeDifference = formatTimeDifference(days, hours, minutes, seconds);
+
             const feedMarkup = `
                 <div class="feed">
                     <div class="head">
@@ -331,8 +414,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <img src="./images/profile-${post.user_id}.jpg">
                             </div>
                             <div class="info">
-                                <h3>${post.username}</h3>
-                                <small>${post.location}, ${post.timestamp}</small>
+                                <h3>${post.fullname}</h3>
+                                <small>${formattedTimeDifference} ago</small>
                             </div>
                         </div>
                         <span class="edit">
