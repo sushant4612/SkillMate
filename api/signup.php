@@ -6,6 +6,7 @@ include('../controllers/SignupController.php');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $signupController = new SignupController();
     $signupController->signupUser(
+        $_POST['name'],
         $_POST['username'],
         $_POST['password'],
         $_POST['confirm_password'],

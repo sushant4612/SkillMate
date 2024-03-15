@@ -141,9 +141,9 @@ class UserModel {
         }
     }
 
-    public function createUser($username, $password, $email, $age) {
+    public function createUser($name, $username, $password, $email, $age) {
         // Insert user data into the 'users' table
-        $query = "INSERT INTO users (username, password, email, age) VALUES ('$username', '$password', '$email', $age)";
+        $query = "INSERT INTO users (fullName, username, password, email, age) VALUES ('$name' ,'$username', '$password', '$email', $age)";
         return pg_query($this->db, $query);
     }
 

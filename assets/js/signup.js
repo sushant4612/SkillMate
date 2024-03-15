@@ -6,8 +6,17 @@ document.getElementById('signup-form').addEventListener('submit', async function
     event.preventDefault();
     // Validate username (letters only)
     const username = document.getElementById('username').value;
-    if (!validateUsernameForNumber(username)) {
-        showError('username', "Username shouldn't start with number.");
+
+    const name = document.getElementById('name').value;
+
+    if (!validateUsernameForNumber(name)) {
+        showError('name', "Name shouldn't start with number.");
+        event.preventDefault();
+        return;
+    }
+
+    if (!validateUsernameForSymbol(name)) {
+        showError('name', "Name shouldn't contain symbol in it.");
         event.preventDefault();
         return;
     }

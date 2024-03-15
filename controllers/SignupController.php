@@ -10,9 +10,9 @@ class SignupController {
         $this->userModel = new UserModel($db);
     }
 
-    public function signupUser($username, $password, $confirmPassword, $email, $age) {
+    public function signupUser($name,$username, $password, $confirmPassword, $email, $age) {
         // Validate input
-        if (!$this->validateInput($username, $password, $confirmPassword, $email, $age)) {
+        if (!$this->validateInput($name,$username, $password, $confirmPassword, $email, $age)) {
             $this->sendErrorResponse("Invalid input. Please check your data.");
             return;
         }
@@ -33,7 +33,7 @@ class SignupController {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert user data into the database
-        $result = $this->userModel->createUser($username, $hashedPassword, $email, $age);
+        $result = $this->userModel->createUser($name, $username, $hashedPassword, $email, $age);
 
         if ($result) {
             session_start();
