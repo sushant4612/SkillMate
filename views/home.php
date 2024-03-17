@@ -19,34 +19,31 @@
                 SkillMate
             </h2>
             <div class="search-bar">
-               <img id="icon" src=""  alt="">
+               <img id="icon" src="../assets/images/icons/icons8-search-50.png"  alt="">
                <input type="search" placeholder="Search for connection">
             </div>
             <div class="create">
                 <button id="logout-button" class="btn btn-primary">Logout</button>
-                <div class="profile-photo">
-                    <img src="" alt="">
-                </div>
             </div>
         </div>
     </nav>
 
     <!-- Form for creating a new post -->
     <div class="modal-overlay" id="modal-overlay">
-    <div class="modal-content">
-        <!-- Form for creating a new post -->
-            <form id="post-form" action="../controllers/.php" method="post" enctype="multipart/form-data">
-                <label for="post-image">Choose an image to post</label>
-                <input type="file" name="post_image" id="post-image" accept="image/*" required>
-                <div id="image-error" class="error-message" style="display: none; color: red;"></div>
-                <textarea name="post_content" id="post-content" cols="30" rows="5" placeholder="Write your caption here" required></textarea>
-                <button id="add-post-btn">Add Post</button>
-            </form>
-            <!-- Close button for modal -->
-            <span class="modal-close" id="modal-close">&times;</span>
+        <div class="modal-content">
+            <!-- Form for creating a new post -->
+                <form id="post-form" action="../controllers/.php" method="post" enctype="multipart/form-data">
+                    <label for="post-image">Choose an image to post</label>
+                    <input type="file" name="post_image" id="post-image" accept="image/*" required>
+                    <div id="image-error" class="error-message" style="display: none; color: red;"></div>
+                    <textarea name="post_content" id="post-content" cols="30" rows="5" placeholder="Write your caption here" required></textarea>
+                    <button id="add-post-btn">Add Post</button>
+                </form>
+                <!-- Close button for modal -->
+                <span class="modal-close" id="modal-close">&times;</span>
 
+        </div>
     </div>
-</div>
     <!-------------------------------- MAIN ----------------------------------->
     <main>
         <div class="container">
@@ -68,12 +65,12 @@
                 <!----------------- SIDEBAR -------------------->
                 <div class="sidebar">
                     <a class="menu-item active">
-                        <img src="" id="icon" style="padding-left: 20px;" alt="">
+                        <img src="../assets/images/icons/icons8-home-50.png" id="icon" style="padding-left: 20px;" alt="">
                         <!-- <span><i class="uil uil-home"></i></span> -->
                         <h3>Home</h3>   
                     </a>
                     <a class="menu-item"  id="notifications">
-                        <img src="" id="icon" style="padding-left: 20px;" alt="">
+                        <img src="../assets/images/icons/icons8-notification-50.png" id="icon" style="padding-left: 20px;" alt="">
                         <h3>Notification</h3>
                         <!--------------- NOTIFICATION POPUP --------------->
                         <div class="notifications-popup">
@@ -135,15 +132,15 @@
                         <!--------------- END NOTIFICATION POPUP --------------->
                     </a>
                     <a class="menu-item" id="messages-notifications">
-                        <img src="" id="icon" style="padding-left: 20px;" alt="">
+                        <img src="../assets/images/icons/icons8-messages-50.png" id="icon" style="padding-left: 20px;" alt="">
                         <h3>Messages</h3>
                     </a>
                     <a class="menu-item">
-                        <img src=""  id="icon" style="padding-left: 20px;" alt="">
+                        <img src="../assets/images/icons/icons8-safety-collection-place-50.png"  id="icon" style="padding-left: 20px;" alt="">
                         <h3>Network</h3>
                     </a>
                     <a class="menu-item" id="theme">
-                        <img src="" id="icon" style="padding-left: 20px;" alt="">
+                        <img src="../assets/images/icons/icons8-theme-50.png" id="icon" style="padding-left: 20px;" alt="">
                         <h3>Theme</h3>
                     </a>
                 </div>
