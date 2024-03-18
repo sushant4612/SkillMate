@@ -1,5 +1,7 @@
 <?php
   session_start();
+  include("../controllers/LoadRecommendation.php");
+  include("../api/friendRequest.php");
 ?>
 
 <!DOCTYPE html>
@@ -248,66 +250,52 @@
                 </div>
                 <!------- END OF MESSAGES ------->
 
-                <!------- FRIEND REQUEST ------->
+                <!-- Friend Requests Section -->
                 <div class="friend-requests">
                     <h4>Requests</h4>
-                    <div class="request">
-                        <div class="info">
-                            <div class="profile-photo">
-                                <img src="">
+                    <?php foreach ($requests as $request): ?>
+                        <div class="request">
+                            <div class="info">
+                                <div class="profile-photo">
+                                    <img src="">
+                                </div>
+                                <div>
+                                    <h5><?php echo $request['username']; ?></h5>
+                                    <p class="text-muted">8 mutual friends</p>
+                                </div>
                             </div>
-                            <div>
-                                <h5>Amey</h5>
-                                <p class="text-muted">8 mutual friends</p>
-                            </div>
-                        </div>
-                        <div class="action">
-                            <button class="btn btn-primary">
-                                Accept
-                            </button>
-                            <button class="btn">
-                                Decline
-                            </button>
-                        </div>
-                    </div>
-                    <div class="request">
-                        <div class="info">
-                            <div class="profile-photo">
-                                <img src="">
-                            </div>
-                            <div>
-                                <h5>Ruturaj</h5>
-                                <p class="text-muted">2 mutual friends</p>
+                            <div class="action">
+                                <form action="" method="post">
+                                    <input type="hidden" name="request_id" value="<?php echo $request['request_id']; ?>">
+                                    <button type="submit" class="btn btn-primary" name="accept_request">Accept</button>
+                                    <button type="submit" class="btn" name="decline_request">Decline</button>
+                                </form>
                             </div>
                         </div>
-                        <div class="action">
-                            <button class="btn btn-primary">
-                                Accept
-                            </button>
-                            <button class="btn">
-                                Decline
-                            </button>
-                        </div>
-                    </div>
-                    <div class="request">
-                        <div class="info">
-                            <div class="profile-photo">
-                                <img src="">
+                    <?php endforeach; ?>
+                </div>
+
+                <div class="recommendation">
+                    <h4>Recommendations</h4>
+                    <?php foreach ($recommendations as $recommendation): ?>
+                        <div class="recommend" >
+                            <div class="info">
+                                <div class="profile-photo">
+                                    <img src="">
+                                </div>
+                                <div>
+                                    <h5><?php echo $recommendation['username']; ?></h5>
+                                    <p class="text-muted">8 mutual friends</p>
+                                </div>
                             </div>
-                            <div>
-                                <h5>Snehal</h5>
-                                <p class="text-muted">5 mutual friends</p>
+                            <div class="action">
+                                <form action="" method="post">
+                                    <input type="hidden" name="receiver_id" value="<?php echo $recommendation['user_id']; ?>">
+                                    <button type="submit" id = "sendRequest" class="btn btn-primary" name="send_request">Send Request</button>
+                                </form>
                             </div>
                         </div>
-                        <div class="action">
-                            <button class="btn btn-primary">
-                                Accept
-                            </button>
-                            <button class="btn">
-                                Decline
-                            </button>
-                        </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <!----------------- END OF RIGHT -------------------->
@@ -368,7 +356,7 @@
             </div>
         </div>
     </div>
-
+    <script src ="../assets/js/request.js"></script>
     <script src="../assets/js/home.js"></script>
 </body>
 </html>
