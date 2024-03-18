@@ -157,6 +157,54 @@ class UserModel {
             return false;
         }
     }
-}
+    public function getRecommendations($userId) {
+        // Get user's interests
+        $userInterests = $this->getUserInterests($userId);
 
+        // Find users with similar interests
+        $recommendations = array();
+        foreach ($userInterests as $interest) {
+            $query = "SELECT DISTINCT u.user_id, u.username FROM users u
+                      INNER JOIN user_interests ui ON u.user_id = ui.user_id
+                      WHERE ui.interest_id = $1 AND u.user_id <> $2";
+            $result = pg_query_params($this->db, $query, array($interest['interest_id'], $userId));
+            while ($row = pg_fetch_assoc($result)) {
+                $recommendations[] = $row;
+            }
+        }
+
+        return $recommendations;
+    }
+
+    // Method to retrieve friend requests for a user
+    public function getFriendRequests($userId) {
+        $requests = array();
+
+        // Get friend requests sent to the user
+        $query = "SELECT u.user_id, u.username FROM users u
+                  INNER JOIN friend_requests fr ON u.user_id = fr.sender_id
+                  WHERE fr.receiver_id = $1 AND fr.status = 'pending'";
+        $result = pg_query_params($this->db, $query, array($userId));
+        while ($row = pg_fetch_assoc($result)) {
+            $requests[] = $row;
+        }
+
+        return $requests;
+    }
+
+    // Method to retrieve user interests
+    private function getUserInterests($userId) {
+        $interests = array();
+
+        $query = "SELECT i.interest_id, i.interest_name FROM interests i
+                  INNER JOIN user_interests ui ON i.interest_id = ui.interest_id
+                  WHERE ui.user_id = $1";
+        $result = pg_query_params($this->db, $query, array($userId));
+        while ($row = pg_fetch_assoc($result)) {
+            $interests[] = $row;
+        }
+
+        return $interests;
+    }
+}
 ?>
