@@ -24,42 +24,51 @@ class PostModel {
     }
 
     public function getFeedPosts($userId) {
-        $query = "SELECT 
-                    photos.*, 
-                    COUNT(photo_likes.like_id) AS like_count, 
-                    COUNT(photo_comments.comment_id) AS comment_count,
-                    users.fullname,
-                    users.username
-                  FROM 
-                    photos
-                  LEFT JOIN 
-                    photo_likes ON photos.photo_id = photo_likes.photo_id
-                  LEFT JOIN 
-                    photo_comments ON photos.photo_id = photo_comments.photo_id
-                  LEFT JOIN 
-                    users ON photos.user_id = users.user_id
-                  WHERE 
-                    photos.user_id IN (
-                      SELECT user_id2 
-                      FROM friendships 
-                      WHERE user_id1 = $userId 
-                      AND status = 'accepted'
-                    )
-                    OR photos.user_id = $userId
-                  GROUP BY 
-                    photos.photo_id,
-                    users.fullname,
-                    users.username
-                  ORDER BY 
-                    photos.created_at DESC";
-    
-        $result = pg_query($this->db, $query);
-        $feedPosts = array();
-        while ($row = pg_fetch_assoc($result)) {
-            $feedPosts[] = $row;
-        }
-        return $feedPosts;
-    }
+      $query = "SELECT 
+                  photos.*, 
+                  COUNT(photo_likes.like_id) AS like_count, 
+                  COUNT(photo_comments.comment_id) AS comment_count,
+                  users.fullname,
+                  users.username
+                FROM 
+                  photos
+                LEFT JOIN 
+                  photo_likes ON photos.photo_id = photo_likes.photo_id
+                LEFT JOIN 
+                  photo_comments ON photos.photo_id = photo_comments.photo_id
+                LEFT JOIN 
+                  users ON photos.user_id = users.user_id
+                WHERE 
+                  (photos.user_id IN (
+                    SELECT user_id2 
+                    FROM friendships 
+                    WHERE user_id1 = $userId 
+                    AND status = 'accepted'
+                  )
+                  OR photos.user_id IN (
+                    SELECT user_id1 
+                    FROM friendships 
+                    WHERE user_id2 = $userId 
+                    AND status = 'accepted'
+                  )
+                  OR photos.user_id = $userId)
+                GROUP BY 
+                  photos.photo_id,
+                  users.fullname,
+                  users.username
+                ORDER BY 
+                  photos.created_at DESC";
+      
+      $result = pg_query($this->db, $query);
+      $feedPosts = array();
+      while ($row = pg_fetch_assoc($result)) {
+          $feedPosts[] = $row;
+      }
+      return $feedPosts;
+  }
+  
+  
+  
     
     
     // You can add more methods here for other post-related actions

@@ -8,6 +8,5 @@ $userId = $_SESSION['uid']; // Assuming you have the user ID in the session
 
 $requests = $userModel->getFriendRequests($userId);
 $recommendations = $userModel->getRecommendations($userId);
-
 // Pass data to the view
 ?>

@@ -21,6 +21,9 @@ class FriendRequestController {
         $this->friendRequestModel->sendRequest($senderId, $receiverId);
     }
 
+    public function deleteRecommendation($receiverId) {
+        $this->friendRequestModel->deleteRecommendation($receiverId);
+    }
     // Additional methods for handling other actions can be added here
 }
 ?>

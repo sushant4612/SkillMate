@@ -26,10 +26,36 @@ class UserModel {
 
     public function addInterest($username, $interest) {
         // Insert user's interest into the database
-        $query = "INSERT INTO user_interests (user_id, interest_id) VALUES ((SELECT user_id FROM users WHERE username = $1), (SELECT interest_id FROM interests WHERE interest_name = $2))";
+        $query = "INSERT INTO user_interests (user_id, interest_id) 
+                  VALUES ((SELECT user_id FROM users WHERE username = $1), 
+                          (SELECT interest_id FROM interests WHERE interest_name = $2))";
         $result = pg_query_params($this->db, $query, array($username, $interest));
-
-        return $result;
+    
+        // Add recommendations based on similar interests
+        $recommendationQuery = "
+        INSERT INTO recommendations (user_id, recommended_user_id, num_similar_interests)
+        SELECT
+            u1.user_id AS user_id,
+            u2.user_id AS recommended_user_id,
+            COUNT(ui1.interest_id) AS num_similar_interests
+        FROM
+            users u1
+        INNER JOIN
+            user_interests ui1 ON u1.user_id = ui1.user_id
+        INNER JOIN
+            user_interests ui2 ON ui1.interest_id = ui2.interest_id
+        INNER JOIN
+            users u2 ON ui2.user_id = u2.user_id AND u1.user_id <> u2.user_id
+        WHERE
+            u1.username = $1
+        GROUP BY
+            u1.user_id, u2.user_id
+        ON CONFLICT (user_id, recommended_user_id) DO NOTHING;
+        ";
+        
+        $recommendationResult = pg_query_params($this->db, $recommendationQuery, array($username));
+    
+        return $result && $recommendationResult;
     }
 
     // UserModel.php
@@ -158,39 +184,49 @@ class UserModel {
         }
     }
     public function getRecommendations($userId) {
-        // Get user's interests
-        $userInterests = $this->getUserInterests($userId);
-
-        // Find users with similar interests
-        $recommendations = array();
-        foreach ($userInterests as $interest) {
-            $query = "SELECT DISTINCT u.user_id, u.username FROM users u
-                      INNER JOIN user_interests ui ON u.user_id = ui.user_id
-                      WHERE ui.interest_id = $1 AND u.user_id <> $2";
-            $result = pg_query_params($this->db, $query, array($interest['interest_id'], $userId));
-            while ($row = pg_fetch_assoc($result)) {
-                $recommendations[] = $row;
+        // Check if there are existing recommendations for the user
+        $query = "SELECT recommended_user_id FROM recommendations WHERE user_id = $1";
+        $result = pg_query_params($this->db, $query, array($userId));
+    
+        // If recommendations exist, fetch them
+        if (pg_num_rows($result) > 0) {
+            // Get user's interests
+            $userInterests = $this->getUserInterests($userId);
+    
+            // Find users with similar interests
+            $recommendations = array();
+            foreach ($userInterests as $interest) {
+                $query = "SELECT DISTINCT u.user_id, u.username FROM users u
+                          INNER JOIN user_interests ui ON u.user_id = ui.user_id
+                          WHERE ui.interest_id = $1 AND u.user_id <> $2";
+                $result = pg_query_params($this->db, $query, array($interest['interest_id'], $userId));
+                while ($row = pg_fetch_assoc($result)) {
+                    $recommendations[] = $row;
+                }
             }
-        }
 
-        return $recommendations;
+            
+            return $recommendations;
+        }
     }
+    
 
     // Method to retrieve friend requests for a user
     public function getFriendRequests($userId) {
         $requests = array();
-
+    
         // Get friend requests sent to the user
-        $query = "SELECT u.user_id, u.username FROM users u
+        $query = "SELECT fr.request_id, u.user_id, u.username FROM users u
                   INNER JOIN friend_requests fr ON u.user_id = fr.sender_id
                   WHERE fr.receiver_id = $1 AND fr.status = 'pending'";
         $result = pg_query_params($this->db, $query, array($userId));
         while ($row = pg_fetch_assoc($result)) {
             $requests[] = $row;
         }
-
+    
         return $requests;
     }
+    
 
     // Method to retrieve user interests
     private function getUserInterests($userId) {
