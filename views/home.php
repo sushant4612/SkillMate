@@ -275,29 +275,54 @@
                     <?php endforeach; ?>
                 </div>
 
-                <div class="recommendation">
-                    <h4>Recommendations</h4>
-                    <?php foreach ($recommendations as $recommendation): ?>
-                        <div class="recommend" >
-                            <div class="info">
-                                <div class="profile-photo">
-                                    <img src="">
+                <?php
+                    // Initialize an empty array to store unique user IDs with their counts
+                    $uniqueRecommendations = array();
+
+                    // Iterate through recommendations to count unique occurrences
+                    foreach ($recommendations as $recommendation) {
+                        $userId = $recommendation['user_id'];
+                        
+                        // Check if the user ID exists in the uniqueRecommendations array
+                        if (isset($uniqueRecommendations[$userId])) {
+                            // If it exists, increment the count
+                            $uniqueRecommendations[$userId]['count']++;
+                        } else {
+                            // If it doesn't exist, add it to the array with count 1
+                            $uniqueRecommendations[$userId] = array(
+                                'user_id' => $userId,
+                                'username' => $recommendation['username'],
+                                'count' => 1
+                            );
+                        }
+                    }
+
+                    // Print the unique recommendations
+                    ?>
+                    <div class="recommendation">
+                        <h4>Recommendations</h4>
+                        <?php foreach ($uniqueRecommendations as $recommendation): ?>
+                            <div class="recommend">
+                                <div class="info">
+                                    <div class="profile-photo">
+                                        <img src="">
+                                    </div>
+                                    <div>
+                                        <h5><?php echo $recommendation['username']; ?></h5>
+                                        <br>
+                                        <p class="text-muted">You have two <?php echo $recommendation['count']; ?> similar intrests</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h5><?php echo $recommendation['username']; ?></h5>
-                                    <p class="text-muted">8 mutual friends</p>
+                                <div class="action">
+                                    <form action="" method="post">
+                                        <input type="hidden" name="receiver_id" value="<?php echo $recommendation['user_id']; ?>">
+                                        <button type="submit" class="btn btn-primary" name="send_request">Send Request</button>
+                                    </form>
                                 </div>
                             </div>
-                            <div class="action">
-                                <form action="" method="post">
-                                    <input type="hidden" name="receiver_id" value="<?php echo $recommendation['user_id']; ?>">
-                                    <button type="submit" id = "sendRequest" class="btn btn-primary" name="send_request">Send Request</button>
-                                </form>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+                        <?php endforeach; ?>
+                    </div>
+
             <!----------------- END OF RIGHT -------------------->
         </div>
     </main>
