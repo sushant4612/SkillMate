@@ -452,3 +452,152 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }    
 });
+
+
+// Function to open the chat popup and load messages
+// Function to open the chat popup and load messages
+function openChatPopup(userId, receiverId) {
+    // Assuming you have AJAX functionality to fetch chat messages for the given user ID
+    fetch('../api/get-messages.php?userId=' + userId)
+        .then(response => response.json())
+        .then(data => {
+            // Populate chat popup with fetched messages
+            const chatPopup = document.getElementById('chat-popup');
+            chatPopup.innerHTML = '';
+
+            // Header with sender name and close button
+            const header = document.createElement('div');
+            header.className = 'chat-popup-header';
+            header.innerHTML = `
+                <span class="sender-name">${data[0].sender_name}</span>
+                <span class="close-popup" onclick="closeChatPopup()">&times;</span>
+            `;
+            chatPopup.appendChild(header);
+
+            // Messages container
+            const messagesDiv = document.createElement('div');
+            messagesDiv.className = 'chat-popup-messages';
+            data.forEach(message => {
+                const messageElement = document.createElement('div');
+                messageElement.className = 'message';
+                // const timeStamp = new Date(message.message_created_at).toLocaleString();
+
+
+                var givenTimestamp = new Date(message.message_created_at);
+
+                // Current date
+                var currentDate = new Date();
+                
+                // Calculate time difference in milliseconds
+                var timeDifference = currentDate - givenTimestamp;
+                
+                // Convert milliseconds to seconds
+                var secondsDifference = Math.floor(timeDifference / 1000);
+                
+                // Calculate elapsed time in seconds, minutes, hours, and days
+                var seconds = secondsDifference % 60;
+                var minutes = Math.floor(secondsDifference / 60) % 60;
+                var hours = Math.floor(secondsDifference / (60 * 60)) % 24;
+                var days = Math.floor(secondsDifference / (60 * 60 * 24));
+                
+                // Define function to format time
+                function formatTime(unit, label) {
+                    return unit > 0 ? unit + " " + label + (unit > 1 ? "s" : "") : "";
+                }
+                
+                // Define function to format time difference
+                function formatTimeDifference(days, hours, minutes, seconds) {
+                    if (days > 0) {
+                        return formatTime(days, "day");
+                    } else if (hours > 0) {
+                        return formatTime(hours, "hour");
+                    } else if (minutes > 0) {
+                        return formatTime(minutes, "minute");
+                    } else {
+                        return formatTime(seconds, "second");
+                    }
+                }
+                
+                // Format the time difference
+                var formattedTimeDifference = formatTimeDifference(days, hours, minutes, seconds);
+
+
+
+
+                messageElement.innerHTML = `
+                    <div class="message-info">
+                        <span class="sender">${message.sender_name}</span>
+                        <span class="time-stamp">${formattedTimeDifference} ago</span>
+                    </div>
+                    <div class="message-content">${message.content}</div>
+                `;
+                messagesDiv.appendChild(messageElement);
+            });
+            chatPopup.appendChild(messagesDiv);
+
+            // Input field and send button
+            const inputField = document.createElement('textarea');
+            inputField.id = 'message-input';
+            inputField.placeholder = 'Type a message...';
+            chatPopup.appendChild(inputField);
+
+            const sendButton = document.createElement('button');
+            sendButton.textContent = 'Send';
+            sendButton.className = 'send-button';
+            sendButton.onclick = () => sendMessage(userId,receiverId);
+            chatPopup.appendChild(sendButton);
+
+            // Show the chat popup
+            chatPopup.style.display = 'block';
+        })
+        .catch(error => console.error('Error fetching messages:', error));
+}
+
+// Function to close the chat popup
+function closeChatPopup() {
+    document.getElementById('chat-popup').style.display = 'none';
+}
+
+// Function to send a message
+function sendMessage(senderId,receiverId) {
+    console.log(senderId)
+    const messageInput = document.getElementById('message-input');
+    const message = messageInput.value.trim();
+    const data = {
+        senderId: senderId,
+        receiverId: receiverId,
+        content: message
+    };
+
+    console.log(data);
+
+    if (message !== '') {
+        // Assuming you have AJAX functionality to send a message
+        fetch('../api/send-message.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data), // Pass data directly without wrapping in another object
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Assuming you update the chat interface to show the sent message
+            const messagesDiv = document.querySelector('.chat-popup-messages');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message';
+            messageElement.innerHTML = `
+                <div class="message-info">
+                    <span class="sender">You</span>
+                    <span class="time-stamp">${new Date().toLocaleString()}</span>
+                </div>
+                <div class="message-content">${message}</div>
+            `;
+            messagesDiv.appendChild(messageElement);
+            // Clear the message input
+            messageInput.value = '';
+        })
+        .catch(error => console.error('Error sending message:', error));
+    }
+}
+

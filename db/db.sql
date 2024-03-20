@@ -49,6 +49,7 @@ CREATE TABLE recommendations (
     recommendation_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES users(user_id),
     recommended_user_id INT REFERENCES users(user_id),
+    num_similar_interests INT,
     UNIQUE(user_id, recommended_user_id)
 );
 
