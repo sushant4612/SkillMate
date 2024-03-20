@@ -841,6 +841,10 @@ MEDIA QUERIES FOR SMALL TABLETS AND MOBILE PHONES
     display: none; /* Hide the original file input */
 }
 
+.hide{
+    display: none;
+}
+
 .custom-file-upload {
     position: relative;
     cursor: pointer;
@@ -883,6 +887,19 @@ MEDIA QUERIES FOR SMALL TABLETS AND MOBILE PHONES
     cursor: pointer;
 }
 
+.message-info{
+    display: flex;
+    justify-content: space-between;
+    color: rgb(0, 0, 0);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.message-content{
+    color: rgb(123, 117, 117);
+}
+
 #add-post-btn:hover {
     background-color: #0056b3;
 }
@@ -892,3 +909,60 @@ MEDIA QUERIES FOR SMALL TABLETS AND MOBILE PHONES
     font-size: 12px;
     color: #666;
 }
+.chat-popup {
+    z-index: 5;
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 20px;
+    border: 1px solid #ccc;
+    width: 400px;
+    height: 500px;
+    background-color: #fff;
+    border-radius: 10px;
+  }
+  
+  .chat-popup-header {
+    padding: 10px;
+    background-color: #f3f3f3;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .sender-name {
+    font-weight: bold;
+  }
+  
+  .close-popup {
+    float: right;
+    cursor: pointer;
+  }
+  
+  .chat-popup-messages {
+    height: calc(100% - 130px);
+    overflow-y: auto;
+    padding: 10px;
+  }
+  
+  .chat-popup-input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+  }
+  
+  .send-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 0 10px 10px;
+  }
+  
+  .send-button:hover {
+    background-color: #0056b3;
+  }
+  

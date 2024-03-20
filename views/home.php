@@ -1,7 +1,24 @@
 <?php
   session_start();
+
+  if (!isset($_SESSION['uid']) || empty($_SESSION['uid'])) {
+    // Session does not contain anything, redirect to 404 error page
+    header("HTTP/1.0 404 Not Found");
+    header("Location: /404-error-page.php");
+    exit(); // Make sure to exit after redirecting
+}
+
+
   include("../controllers/LoadRecommendation.php");
+  include("../controllers/ChatMessageController.php");
   include("../api/friendRequest.php");
+  include('../includes/db_connection.php');
+
+  $chatMessageModel = new ChatMessageModel($db);
+  $chatMessageController = new ChatMessageController($chatMessageModel);
+  
+
+  $friendChatMessages = $chatMessageController->getFriendChatMessages($userId);
 ?>
 
 <!DOCTYPE html>
@@ -15,6 +32,11 @@
     <link rel="stylesheet" href="../assets/css/home.css">
 </head>
 <body>
+    <script>
+        // Set a JavaScript variable with the user ID from PHP
+        const userId = <?php echo $_SESSION['uid']; ?>;
+    </script>
+
     <nav>
         <div class="container">
             <h2 class="logo">
@@ -29,6 +51,17 @@
             </div>
         </div>
     </nav>
+
+    <div id="chat-popup" class="chat-popup">
+        
+        <div class="chat-popup-header">
+            <span id="popup-sender-name" class="sender-name"></span>
+            <span class="close-popup" onclick="closePopup()">&times;</span>
+        </div>
+        <div id="popup-messages" class="chat-popup-messages"></div>
+        <textarea id="popup-message-input" class="chat-popup-input" placeholder="Type a message..."></textarea>
+        <button onclick="sendMessage(<?php echo $_SESSION['uid']; ?>)" class="send-button">Send</button>
+    </div>
 
     <!-- Form for creating a new post -->
     <div class="modal-overlay" id="modal-overlay">
@@ -60,6 +93,7 @@
                         <h4></h4>
                         <p class="text-muted">
                             <?php echo $_SESSION['username']; ?>
+                            <?php echo $_SESSION['uid']; ?>
                         </p>
                     </div>
                 </a>
@@ -170,84 +204,55 @@
             <div class="right">
                 <!------- MESSAGES ------->
                 <div class="messages">
+                    <!-- Heading for the chat section -->
                     <div class="heading">
-                        <h4></h4>
+                        <h4>Chat Messages</h4>
                         <i class="uil uil-edit"></i>
                     </div>
-                    <!------- SEARCH BAR ------->
+                    
+                    <!-- Search bar for filtering messages -->
                     <div class="search-bar">
                         <i class="uil uil-search"></i>
                         <input type="search" placeholder="Search messages" id="message-search">
                     </div>
-                    <!------- MESSAGES CATEGORY ------->
+                    
+                    <!-- Category section for different types of messages -->
                     <div class="category">
-                        <h6 class="active">Primary</h6>
-                        <h6>General</h6>
-                        <h6 class="message-requests">Requests (7)</h6>
+                        <h6 class="active">General</h6>
+                        <!-- Add more categories if needed -->
                     </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="">
-                        </div>
-                        <div class="message-body">
-                            <h5>Vaishali Chavan</h5>
-                            <p class="text-muted">Done with yesterday works</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="">
-                        </div>
-                        <div class="message-body">
-                            <h5>Vaibhavi Bondre</h5>
-                            <p class="text-bold">2 new messages</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="">
-                            <div class="active"></div>
-                        </div>
-                        <div class="message-body">
-                            <h5>Shreeram</h5>
-                            <p class="text-muted">lol u right</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="">
-                        </div>
-                        <div class="message-body">
-                            <h5>Sahasi</h5>
-                            <p class="text-muted">Birtday Tomorrow</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="">
-                            <div class="active"></div>
-                        </div>
-                        <div class="message-body">
-                            <h5>Chetana Rane</h5>
-                            <p class="text-bold">5 new messages</p>
-                        </div>
-                    </div>
-                    <!------- MESSAGES ------->
-                    <div class="message">
-                        <div class="profile-photo">
-                            <img src="">
-                        </div>
-                        <div class="message-body">
-                            <h5>Aditya </h5>
-                            <p class="text-muted">haha got that!</p>
-                        </div>
-                    </div>
+                    
+                    <!-- Display chat messages here -->
+                    <?php 
+                        $displayedUsernames = array(); // Array to store displayed usernames
+                        foreach ($friendChatMessages as $message): 
+                            // Determine the username to display based on the sender's and receiver's IDs
+                            $username = ($message['sender_id'] == $userId) ? $message['receiver_username'] : $message['sender_username'];
+                            // Check if the username has already been displayed
+                            if (!in_array($username, $displayedUsernames)):
+                                // Add the username to the array of displayed usernames
+                                $displayedUsernames[] = $username;
+                        ?>
+                        <script>
+                            var receiver_id = $message['sender_id'];
+                        </script>
+                            <div class="message" onclick="openChatPopup(<?php echo $_SESSION['uid']; ?>, '<?php echo $message['sender_id']; ?>')">
+                                <div class="profile-photo">
+                                    <img src="">
+                                </div>
+                                <div class="message-body">
+                                    <!-- Display the username -->
+                                    <h5><?php echo $username; ?></h5>
+                                    <!-- Display the message content -->
+                                    <p class="text-muted"><?php echo $message['content']; ?></p>
+                                </div>
+                            </div>
+                        <?php 
+                            endif;
+                        endforeach; 
+                        ?>
                 </div>
+
                 <!------- END OF MESSAGES ------->
 
                 <!-- Friend Requests Section -->
