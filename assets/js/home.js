@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="./images/profile-${post.user_id}.jpg">
+                                <img src="../assets/images/icons/149071.png">
                             </div>
                             <div class="info">
                                 <h3>${post.fullname}</h3>
@@ -601,3 +601,76 @@ function sendMessage(senderId,receiverId) {
     }
 }
 
+// JavaScript to show/hide the popup
+document.addEventListener("DOMContentLoaded", function() {
+    // Get references to the popup and overlay elements
+    const popup = document.getElementById("profilePopup");
+    const overlay = document.getElementById("popupOverlay");
+
+    // Get reference to the button that triggers the popup
+    const showPopupBtn = document.getElementById("editProfileBtn");
+
+    // Function to show the popup and overlay
+    function showPopup() {
+        popup.style.display = "block";
+        overlay.style.display = "block";
+    }
+
+    // Function to hide the popup and overlay
+    function hidePopup() {
+        popup.style.display = "none";
+        overlay.style.display = "none";
+    }
+
+    // Add click event listener to the button to show the popup
+    showPopupBtn.addEventListener("click", showPopup);
+
+    // Add click event listener to the close button in the popup to hide it
+    document.getElementById("closePopup").addEventListener("click", hidePopup);
+
+    // Add click event listener to the overlay to hide the popup when clicked outside
+    overlay.addEventListener("click", hidePopup);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the form element
+    var profileForm = document.getElementById('profileForm');
+
+    // Add event listener for form submission
+    profileForm.addEventListener('submit', function (event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+
+        // Perform form data validation here if needed
+
+        // Create a FormData object to send form data asynchronously
+        var formData = new FormData(profileForm);
+
+        // Send the form data asynchronously using fetch API
+        fetch(profileForm.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Check the response status
+            if (data.status === 'error') {
+                // Display the error message
+                var errorMessage = data.message;
+                var errorContainer = document.getElementById('profilePhotoError');
+                errorContainer.textContent = errorMessage;
+                errorContainer.style.display = 'block';
+            }
+            if(data.status == 'success'){
+                window.location.href = "home.php";
+            } else {
+                // Reset the form and close the popup if upload is successful
+                profileForm.reset();
+                // Close the popup or do other actions as needed
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+});

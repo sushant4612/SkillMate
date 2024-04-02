@@ -1,7 +1,6 @@
 <?php
 
 include('../models/ChatMessageModel.php');
-include('../includes/db_connection.php');
 
 class ChatMessageController {
     private $chatMessageModel;

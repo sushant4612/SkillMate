@@ -31,7 +31,7 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="../assets/css/home.css">
 </head>
-<body>
+<body id = "body">
     <script>
         // Set a JavaScript variable with the user ID from PHP
         const userId = <?php echo $_SESSION['uid']; ?>;
@@ -67,7 +67,7 @@
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal-content">
             <!-- Form for creating a new post -->
-                <form id="post-form" action="../controllers/.php" method="post" enctype="multipart/form-data">
+                <form id="post-form" action="../api/add_post.php" method="post" enctype="multipart/form-data">
                     <label for="post-image">Choose an image to post</label>
                     <input type="file" name="post_image" id="post-image" accept="image/*" required>
                     <div id="image-error" class="error-message" style="display: none; color: red;"></div>
@@ -76,24 +76,56 @@
                 </form>
                 <!-- Close button for modal -->
                 <span class="modal-close" id="modal-close">&times;</span>
-
         </div>
+    </div>
+
+    <div id="profilePopup" class="popup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <!-- Profile photo upload form -->
+            <form id="profileForm" action="../api/upload_profile_photo.php" method="post" enctype="multipart/form-data">
+                <!-- Label with user image -->
+                <label for="profilePhotoInput" class="file-upload-label">
+                    <!-- User image placeholder -->
+                    <img src="../assets/images/icons/149071.png" alt="User Image">
+                    <!-- Text indicating to choose a profile photo -->
+                    Choose a profile photo
+                </label>
+                <!-- File input -->
+                <input type="file" name="profilePhoto" id="profilePhotoInput" class="file-upload-input" accept="image/*">
+                <!-- Error message container -->
+                <div id="profilePhotoError" class="error-message" style="display: none;"></div>
+                <!-- Submit button -->
+                <button type="submit">Upload Profile Photo</button>
+            </form>
+            <!-- Edit interests form -->
+            <form action="edit_interests.php" method="post">
+                <!-- Display user interests here -->
+                <!-- Provide input fields or checkboxes for editing interests -->
+                <button type="submit">Save Interests</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!-- Overlay to dim the background -->
+    <div class="popup-overlay" id="popupOverlay"></div>
     </div>
     <!-------------------------------- MAIN ----------------------------------->
     <main>
         <div class="container">
             <!----------------- LEFT -------------------->
             <div class="left">
-                <a class="profile">
+                <a id = "editProfileBtn" class="profile">
                     <div class="profile-photo">
                         <!-- <img src="/> -->
-                        <img src="" alt="">
+                        <img src="../assets/images/icons/149071.png" alt="">
                     </div>
                     <div class="handle">
                         <h4></h4>
                         <p class="text-muted">
                             <?php echo $_SESSION['username']; ?>
-                            <?php echo $_SESSION['uid']; ?>
                         </p>
                     </div>
                 </a>
@@ -105,67 +137,8 @@
                         <!-- <span><i class="uil uil-home"></i></span> -->
                         <h3>Home</h3>   
                     </a>
-                    <a class="menu-item"  id="notifications">
-                        <img src="../assets/images/icons/icons8-notification-50.png" id="icon" style="padding-left: 20px;" alt="">
-                        <h3>Notification</h3>
-                        <!--------------- NOTIFICATION POPUP --------------->
-                        <div class="notifications-popup">
-                            <div>
-                                <div class="profile-photo">
-                                    <img src="">
-                                </div>
-                                <div class="notification-body">
-                                    <b>Sushant</b> accepted your friend request
-                                    <small class="text-muted">2 Days Ago</small>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="profile-photo">
-                                    <img src="">
-                                </div>
-                                <div class="notification-body">
-                                    <b>Chetana</b> commented on your post
-                                    <small class="text-muted">1 Hour Ago</small>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="profile-photo">
-                                    <img src="">
-                                </div>
-                                <div class="notification-body">
-                                    <b>Vaibhavi</b> and <b>283 Others</b> liked your post
-                                    <small class="text-muted">4 Minutes Ago</small>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="profile-photo">
-                                    <img src="">
-                                </div>
-                                <div class="notification-body">
-                                    <b>Nishidha</b> commented on a post you are tagged in
-                                    <small class="text-muted">2 Days Ago</small>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="profile-photo">
-                                    <img src="">
-                                </div>
-                                <div class="notification-body">
-                                    <b>Vaishali</b> commented on a post you are tagged in
-                                    <small class="text-muted">1 Hour Ago</small>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="profile-photo">
-                                    <img src="">
-                                </div>
-                                <div class="notification-body">
-                                    <b>Rohit</b> commented on your post
-                                    <small class="text-muted">1 Hour Ago</small>
-                                </div>
-                            </div>
-                        </div>
-                        <!--------------- END NOTIFICATION POPUP --------------->
+                   
+            
                     </a>
                     <a class="menu-item" id="messages-notifications">
                         <img src="../assets/images/icons/icons8-messages-50.png" id="icon" style="padding-left: 20px;" alt="">
@@ -238,7 +211,7 @@
                         </script>
                             <div class="message" onclick="openChatPopup(<?php echo $_SESSION['uid']; ?>, '<?php echo $message['sender_id']; ?>')">
                                 <div class="profile-photo">
-                                    <img src="">
+                                    <img src="../assets/images/icons/149071.png">
                                 </div>
                                 <div class="message-body">
                                     <!-- Display the username -->
@@ -273,7 +246,7 @@
                                 <div class="request">
                                     <div class="info">
                                         <div class="profile-photo">
-                                            <img src="">
+                                            <img src="../assets/images/icons/149071.png">
                                         </div>
                                         <div>
                                             <h5><?php echo $request['username']; ?></h5>
@@ -325,7 +298,7 @@
                                 <div class="recommend">
                                     <div class="info">
                                         <div class="profile-photo">
-                                            <img src="">
+                                            <img src="../assets/images/icons/149071.png">
                                         </div>
                                         <div>
                                             <h5><?php echo $recommendation['username']; ?></h5>
@@ -345,8 +318,6 @@
                     <?php
                     } 
                     ?>
-
-
             <!----------------- END OF RIGHT -------------------->
         </div>
     </main>

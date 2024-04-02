@@ -60,6 +60,21 @@ class UserModel {
 
     // UserModel.php
 
+    public function uploadProfilePhoto($userId, $imagePath) {
+        // Prepare the SQL statement
+        $query = "UPDATE users SET profile_photo = $1 WHERE user_id = $2";
+
+        // Execute the prepared statement with parameters
+        $result = pg_query_params($this->db, $query, array($imagePath, $userId));
+
+        // Check if the query was successful
+        if ($result) {
+            return true; // Profile photo uploaded successfully
+        } else {
+            return false; // Failed to upload profile photo
+        }
+    }
+
     public function updatePassword($userId, $newPassword) {
         // Hash the new password before updating
         $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
