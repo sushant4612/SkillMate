@@ -14,7 +14,8 @@ class ChatMessageModel {
                     cm.content,
                     cm.created_at AS message_created_at,
                     sender.username AS sender_username,
-                    receiver.username AS receiver_username
+                    receiver.username AS receiver_username,
+                    receiver.profile_photo AS profile_photo
                   FROM 
                     chat_messages cm
                   JOIN 

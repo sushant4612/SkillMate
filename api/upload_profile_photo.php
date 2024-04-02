@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Define the destination path for the profile photo
         $destinationPath = $destinationDir . $filename;
+        $_SESSION['profile-photo'] = $destinationPath;
 
         // Move the uploaded file to the destination directory
         if (move_uploaded_file($_FILES['profilePhoto']['tmp_name'], $destinationPath)) {

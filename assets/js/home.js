@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="head">
                         <div class="user">
                             <div class="profile-photo">
-                                <img src="../assets/images/icons/149071.png">
+                                <img src="${post.profile_photo}">
                             </div>
                             <div class="info">
                                 <h3>${post.fullname}</h3>

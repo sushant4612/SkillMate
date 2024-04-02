@@ -29,7 +29,8 @@ class PostModel {
                   COUNT(photo_likes.like_id) AS like_count, 
                   COUNT(photo_comments.comment_id) AS comment_count,
                   users.fullname,
-                  users.username
+                  users.username,
+                  users.profile_photo
                 FROM 
                   photos
                 LEFT JOIN 
@@ -55,7 +56,8 @@ class PostModel {
                 GROUP BY 
                   photos.photo_id,
                   users.fullname,
-                  users.username
+                  users.username,
+                  users.profile_photo
                 ORDER BY 
                   photos.created_at DESC";
       

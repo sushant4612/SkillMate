@@ -13,5 +13,6 @@ class ProfileController {
         // Call the uploadProfilePhoto method of the ProfileModel
         return $this->userModel->uploadProfilePhoto($userId, $imagePath);
     }
+    
 }
 ?>

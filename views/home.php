@@ -13,12 +13,16 @@
   include("../controllers/ChatMessageController.php");
   include("../api/friendRequest.php");
   include('../includes/db_connection.php');
+  include("../api/Profile.php");
 
+  $profile = new Profile();
   $chatMessageModel = new ChatMessageModel($db);
   $chatMessageController = new ChatMessageController($chatMessageModel);
-  
-
   $friendChatMessages = $chatMessageController->getFriendChatMessages($userId);
+  $profilePath = $profile->showProfile($userId);
+  if($profilePath == ''){
+    $profilePath = "../assets/images/icons/user.png";
+  }
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +91,7 @@
                 <!-- Label with user image -->
                 <label for="profilePhotoInput" class="file-upload-label">
                     <!-- User image placeholder -->
-                    <img src="../assets/images/icons/149071.png" alt="User Image">
+                    <img src="<?php echo  $profilePath; ?>" alt="User Image">
                     <!-- Text indicating to choose a profile photo -->
                     Choose a profile photo
                 </label>
@@ -120,7 +124,7 @@
                 <a id = "editProfileBtn" class="profile">
                     <div class="profile-photo">
                         <!-- <img src="/> -->
-                        <img src="../assets/images/icons/149071.png" alt="">
+                        <img src="<?php echo $profilePath?>" alt="">
                     </div>
                     <div class="handle">
                         <h4></h4>
@@ -211,7 +215,7 @@
                         </script>
                             <div class="message" onclick="openChatPopup(<?php echo $_SESSION['uid']; ?>, '<?php echo $message['sender_id']; ?>')">
                                 <div class="profile-photo">
-                                    <img src="../assets/images/icons/149071.png">
+                                    <img src="<?php echo $friendChatMessages[0]['profile_photo']; ?>">
                                 </div>
                                 <div class="message-body">
                                     <!-- Display the username -->
@@ -242,11 +246,12 @@
                                     if (!in_array($request['username'], $uniqueUsernames)): 
                                         // If not, add it to the array and display the request
                                         $uniqueUsernames[] = $request['username']; 
+                                        $uniqueUsernames[] = $request['profile_photo']; 
                                 ?>
                                 <div class="request">
                                     <div class="info">
                                         <div class="profile-photo">
-                                            <img src="../assets/images/icons/149071.png">
+                                            <img src="<?php echo $request['profile_photo']; ?>">
                                         </div>
                                         <div>
                                             <h5><?php echo $request['username']; ?></h5>
@@ -257,7 +262,7 @@
                                         <form action="" method="post">
                                             <input type="hidden" name="request_id" value="<?php echo $request['request_id']; ?>">
                                             <button type="submit" class="btn btn-primary" name="accept_request">Accept</button>
-                                            <button type="submit" class="btn" name="decline_request">Decline</button>
+                                            <button type="submit" class="btn" id = "decline" name="decline_request">Decline</button>
                                         </form>
                                     </div>
                                 </div>
@@ -285,7 +290,8 @@
                                 $uniqueRecommendations[$userId] = array(
                                     'user_id' => $userId,
                                     'username' => $recommendation['username'],
-                                    'count' => 1
+                                    'count' => 1,
+                                    'profile_photo' => $recommendation["profile_photo"]
                                 );
                             }
                         }
@@ -298,7 +304,7 @@
                                 <div class="recommend">
                                     <div class="info">
                                         <div class="profile-photo">
-                                            <img src="../assets/images/icons/149071.png">
+                                            <img src="<?php echo $recommendation["profile_photo"]?>">
                                         </div>
                                         <div>
                                             <h5><?php echo $recommendation['username']; ?></h5>

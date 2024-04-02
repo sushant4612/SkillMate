@@ -1,4 +1,3 @@
-
 <?php
 
 class UserModel {
@@ -211,7 +210,7 @@ class UserModel {
             // Find users with similar interests
             $recommendations = array();
             foreach ($userInterests as $interest) {
-                $query = "SELECT DISTINCT u.user_id, u.username FROM users u
+                $query = "SELECT DISTINCT u.user_id, u.username, u.profile_photo FROM users u
                           INNER JOIN user_interests ui ON u.user_id = ui.user_id
                           WHERE ui.interest_id = $1 AND u.user_id <> $2";
                 $result = pg_query_params($this->db, $query, array($interest['interest_id'], $userId));
@@ -219,8 +218,6 @@ class UserModel {
                     $recommendations[] = $row;
                 }
             }
-
-            
             return $recommendations;
         }
     }
@@ -231,14 +228,13 @@ class UserModel {
         $requests = array();
     
         // Get friend requests sent to the user
-        $query = "SELECT fr.request_id, u.user_id, u.username FROM users u
+        $query = "SELECT fr.request_id, u.user_id, u.username, u.profile_photo FROM users u
                   INNER JOIN friend_requests fr ON u.user_id = fr.sender_id
                   WHERE fr.receiver_id = $1 AND fr.status = 'pending'";
         $result = pg_query_params($this->db, $query, array($userId));
         while ($row = pg_fetch_assoc($result)) {
             $requests[] = $row;
         }
-    
         return $requests;
     }
     
